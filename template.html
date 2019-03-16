@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html {
+                font-family: sans-serif;
+                margin: 20px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Outdated dependencies</h1>
+        <p>Red: outdated, Orange: has outdated dependencies, Green: all good</p>
+        <div id="root"></div>
+        <div id="report"></div>
+
+        <script src="https://unpkg.com/sunburst-chart"></script>
+        <script>
+
+        // Will be replaced at generation.
+        const data = DATA;
+
+        const GREEN = "#4caf50"; // 0
+        const ORANGE = "#ff9800"; // 1
+        const RED = "#f44336"; // 2
+
+        const COLORS = [ GREEN, ORANGE, RED ];
+
+        const chart = Sunburst();
+        chart
+            .data(data)
+            .width(window.innerWidth - 60)
+            .color(node => COLORS[node.color])
+            .tooltipContent(node => `${node.name}<br />Latest version: <strong>${node.latest}</strong>`)
+            (document.getElementById("root"));
+
+        const report = {};
+
+        function findOutdated(node) {
+            // Check current node
+            
+            if (node.color > 0) {
+                if (!report.hasOwnProperty(node.name)) {
+                    report[node.name] = {
+                        name: node.name,
+                        version: node.version,
+                        latest: node.latest,
+                        outdated: {}
+                    };
+                }
+
+                node.children.filter(child => child.color == 2).forEach(child => {
+                    report[node.name].outdated[child.name] = {
+                        name: child.name,
+                        version: child.version,
+                        latest: child.latest
+                    }
+                });
+            }
+
+
+            // Check for all children
+            if (node.children) {
+                node.children.forEach(child => findOutdated(child));
+            }
+        }
+
+        findOutdated(data);
+
+        const outdatedPackages = Object.keys(report).sort();
+        const reportContainer = document.getElementById("report");
+
+        outdatedPackages.forEach(pack => {
+            const title = document.createElement("h2");
+            title.innerText = pack;
+            reportContainer.appendChild(title);
+
+            const reportData = report[pack];
+
+            if (reportData.version != reportData.latest) {
+                const p = document.createElement("p");
+                p.innerText = "A newer version of this package is available: " + reportData.latest;
+                reportContainer.appendChild(p);
+            }
+
+            const list = document.createElement("ul");
+            reportContainer.appendChild(list);
+
+            Object.keys(reportData.outdated).forEach(outdatedKey => {
+                const outdated = reportData.outdated[outdatedKey];
+                const item = document.createElement("li");
+                item.innerHTML = `${outdated.name} has a new version: ${outdated.latest}`
+                list.appendChild(item);
+            });
+        });
+        
+        </script>
+    </body>
+</html>
