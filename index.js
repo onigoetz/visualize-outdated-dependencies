@@ -5,7 +5,7 @@ const lockfile = require("@yarnpkg/lockfile");
 const pacote = require('pacote');
 const cliProgress = require('cli-progress');
 const temp = require('temp');
-const opn = require('opn');
+const open = require('open');
 
 const arg = require('arg');
 const NodeCache = require( "node-file-cache" );
@@ -118,7 +118,7 @@ const args = arg({
     console.log(tempName);
 
     // Open in browser
-    opn(tempName, { wait: false }).catch(error => {
+    open(tempName, { wait: false }).catch(error => {
         console.error('Unable to open web browser. ' + error);
         console.error('View HTML for the visualization at:');
         console.error(tempName);
