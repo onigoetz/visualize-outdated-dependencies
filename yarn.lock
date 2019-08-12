@@ -104,10 +104,10 @@ chownr@^1.1.1:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
   integrity sha512-j38EvO5+LHX84jlo6h4UzmOwi0UgW61WRyPtJz4qaadK5eY3BTS5TY/S1Stc3Uk2lIM6TPevAlULiEJwie860g==
 
-cli-progress@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-2.1.1.tgz#45ee1b143487c19043a3262131ccb4676f87f032"
-  integrity sha512-TSJw3LY9ZRSis7yYzQ7flIdtQMbacd9oYoiFphJhI4SzgmqF0zErO+uNv0lbUjk1L4AGfHQJ4OVYYzW+JV66KA==
+cli-progress@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.0.0.tgz#c8d6bc876be1aef41c586224917f2ffdccb5a150"
+  integrity sha512-Aq12tfjpZgnfG3mVluGTdB+hRhRN7QQmSmjgsQftU6bC59RQyMON/x2vpYvSgbc/JKxH/oXKEKvgTrE7pDFYHg==
   dependencies:
     colors "^1.1.2"
     string-width "^2.1.1"
