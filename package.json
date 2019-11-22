@@ -7,7 +7,7 @@
         "@yarnpkg/lockfile": "^1.0.2",
         "arg": "^4.1.1",
         "cli-progress": "^3.4.0",
-        "glob": "^7.1.5",
+        "glob": "^7.1.6",
         "node-file-cache": "^1.0.2",
         "opn": "^6.0.0",
         "pacote": "^10.1.3",
