@@ -108,10 +108,10 @@ clean-stack@^2.0.0:
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
   integrity sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==
 
-cli-progress@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.3.1.tgz#e08fb6853e269c3bc7e0ad8ad0ede59035f5fbce"
-  integrity sha512-cfvv/uuWblzSI6fvpmCNREWxwzI/luelp+P7zoPlguswswWVCfsq334/U6tmh+vusJ7yzbQ3xFni9JNqiF4fAA==
+cli-progress@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.4.0.tgz#5f7459dad0258376e25149893427ba7f3a5160b4"
+  integrity sha512-35zcc1FsbPfN2dVonxUQwEnqMnI5kDFx2G4qGFGWgIDYqZ6+3t4/GjX/Vk0tq6bNgI9dEFcWLJ6AaLN17NLBDA==
   dependencies:
     colors "^1.1.2"
     string-width "^2.1.1"
