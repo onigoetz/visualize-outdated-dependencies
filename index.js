@@ -36,8 +36,7 @@ async function getLatestVersions(lockfileDependencies) {
     packageList.map(async pack => {
       const key = `latestVersion:${pack}`;
       let latestVersion = latestVersionCache.get(key);
-
-      if (latestVersion === undefined) {
+      if (!latestVersion) {
         try {
           const manifest = await pacote.manifest(`${pack}@latest`);
           latestVersion = manifest.version;
