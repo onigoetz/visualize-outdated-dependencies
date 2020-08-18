@@ -1,10 +1,6 @@
 # Outdated dependencies visualizer
 
----
-
 ![](screenshot.png)
-
----
 
 Check the state of dependencies of your package and all of its dependencies.
 
@@ -19,6 +15,8 @@ npm install -g @onigoetz/outdated-dependencies
 ```
 
 ## Usage
+
+Run the command within one of your modules
 
 ```bash
 outdated-dependencies
