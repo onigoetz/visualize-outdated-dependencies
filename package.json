@@ -1,6 +1,6 @@
 {
   "name": "@onigoetz/outdated-dependencies",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": "https://github.com/onigoetz/visualize-outdated-dependencies",
   "publishConfig": {
