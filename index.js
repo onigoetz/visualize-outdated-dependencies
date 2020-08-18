@@ -2,126 +2,140 @@
 const fs = require("fs");
 const path = require("path");
 const lockfile = require("@yarnpkg/lockfile");
-const pacote = require('pacote');
-const cliProgress = require('cli-progress');
-const temp = require('temp');
-const open = require('open');
-
-const arg = require('arg');
-const NodeCache = require( "node-file-cache" );
+const pacote = require("pacote");
+const cliProgress = require("cli-progress");
+const temp = require("temp");
+const open = require("open");
+const arg = require("arg");
+const NodeCache = require("node-file-cache");
 
 const TreeMaker = require("./TreeMaker.js");
 
 const latestVersionCache = NodeCache.create({
-    file: path.join(__dirname, "latestVersion_cache.json"),
-    life: 60 * 60 * 6 // 6 hours
+  file: path.join(__dirname, "latestVersion_cache.json"),
+  life: 60 * 60 * 6 // 6 hours
 });
 
 async function getLatestVersions(lockfileDependencies) {
-    const allPackages = {};
-    Object.keys(lockfileDependencies).forEach(key => {
-        const lastIndex = key.lastIndexOf("@");
-        const package = key.substring(0, lastIndex);
-        allPackages[package] = null;
-    });
+  const allPackages = {};
+  Object.keys(lockfileDependencies).forEach(key => {
+    allPackages[key.substring(0, key.lastIndexOf("@"))] = null;
+  });
 
-    const progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
-    const packageList = Object.keys(allPackages);
+  const progressBar = new cliProgress.Bar(
+    {},
+    cliProgress.Presets.shades_classic
+  );
+  const packageList = Object.keys(allPackages);
 
-    let done = 0;
-    progressBar.start(packageList.length, done);
+  let done = 0;
+  progressBar.start(packageList.length, done);
 
-    await Promise.all(
-        packageList.map(async package => {
-            const key = `latestVersion:${package}`;
-            let latestVersion = latestVersionCache.get(key);
+  await Promise.all(
+    packageList.map(async pack => {
+      const key = `latestVersion:${pack}`;
+      let latestVersion = latestVersionCache.get(key);
 
-            if (latestVersion == undefined) {
-                try {
-                    const manifest = await pacote.manifest(`${package}@latest`);
-                    latestVersion = manifest.version;
+      if (latestVersion === undefined) {
+        try {
+          const manifest = await pacote.manifest(`${pack}@latest`);
+          latestVersion = manifest.version;
 
-                    latestVersionCache.set(key, latestVersion);
-                } catch (error) {
-                    console.log(`Could not retrieve manifest for ${package}.`, error);
-                    latestVersion = null;
-                }
-            }
-            
-            done++;
-            progressBar.update(done);
-        
-            allPackages[package] = latestVersion;
+          latestVersionCache.set(key, latestVersion);
+        } catch (error) {
+          console.error(`Could not retrieve manifest for ${pack}.`, error);
+          latestVersion = null;
+        }
+      }
 
-            return true;
-        })
-    );
+      done++;
+      progressBar.update(done);
 
-    progressBar.stop();
+      allPackages[pack] = latestVersion;
 
-    return allPackages;
+      return true;
+    })
+  );
+
+  progressBar.stop();
+
+  return allPackages;
 }
 
 const args = arg({
-    // Types
-    '--help':    Boolean,
-    '--version': Boolean,
-    '--clear-cache': Boolean,
-    //'--verbose': arg.COUNT,   // Counts the number of times --verbose is passed
-    //'--ignore':     [String],    // --tag <string> or --tag=<string>
- 
-    // Aliases
-    //'-v':        '--verbose',
+  // Types
+  "--help": Boolean,
+  "--version": Boolean,
+  "--clear-cache": Boolean,
+  "--verbose": Boolean,
+
+  // Aliases
+  "-v": "--verbose"
 });
 
-(async function () {
+(async function() {
+  if (args["--version"]) {
+    const packageJson = require(path.join(__dirname, "package.json"));
+    console.log(`${packageJson.name} Version ${packageJson.version}`);
+    return;
+  }
 
-    if (args['--version']) {
-        const packageJson = require(path.join(__dirname, "package.json"));
-        console.log(`${packageJson.name} Version ${packageJson.version}`);
-        return;
-    }
+  if (args["--help"]) {
+    console.log(`
+Run this command within a node package to get the up-to-date ness of its dependencies, for the current package and all its children.
+In case of yarn workspaces, all packages are included.
 
-    if (args['--help']) {
-        // TODO :: write help
-        console.log("No Help yet");
-        return;
-    }
+Command:
+  outdated-dependencies
 
-    if (args['--clear-cache']) {
-        console.log("Clearing cache");
-        latestVersionCache.clear();
-    }
+Options:
+  --clear-cache Clear dependencies cache
+  --help        Show this help
+  --version     Show the version and exit
+  --verbose, -v Also display debug information
+        `);
+    return;
+  }
 
-    const currentDir = process.cwd();
+  if (args["--clear-cache"]) {
+    console.log("Clearing cache");
+    latestVersionCache.clear();
+  }
 
-    // Read lockfile
-    let file = fs.readFileSync(path.join(currentDir, 'yarn.lock'), 'utf8');
-    let lockfileDependencies = lockfile.parse(file).object;
+  const verbose = args["--verbose"];
 
-    console.log("Getting latest Versions...");
-    //const latestVersions = {};
-    const latestVersions = await getLatestVersions(lockfileDependencies);
+  const currentDir = process.cwd();
 
-    // Read packages list
-    const rootPackage = require(path.join(currentDir, 'package.json'));
+  // Read lockfile
+  const file = fs.readFileSync(path.join(currentDir, "yarn.lock"), "utf8");
+  const lockfileDependencies = lockfile.parse(file).object;
 
-    // Create tree
-    const tree = new TreeMaker(lockfileDependencies, latestVersions);
-    const resolved = tree.getTree(rootPackage);
+  console.log("Getting latest Versions...");
+  const latestVersions = await getLatestVersions(lockfileDependencies);
 
-    // Write file
-    var tempName = temp.path({ suffix: ".html" });
-    const template = fs.readFileSync(path.join(__dirname, "template.html"), { encoding: "UTF-8" });
-    fs.writeFileSync(tempName, template.replace("DATA", JSON.stringify(resolved.toArray())));
+  // Read packages list
+  const rootPackage = require(path.join(currentDir, "package.json"));
 
-    console.log(tempName);
+  // Create tree
+  const tree = new TreeMaker(lockfileDependencies, latestVersions, verbose);
+  const resolved = tree.getTree(rootPackage);
 
-    // Open in browser
-    open(tempName, { wait: false }).catch(error => {
-        console.error('Unable to open web browser. ' + error);
-        console.error('View HTML for the visualization at:');
-        console.error(tempName);
-    });
-})()
+  // Write file
+  var tempName = temp.path({ suffix: ".html" });
+  const template = fs.readFileSync(path.join(__dirname, "template.html"), {
+    encoding: "utf-8"
+  });
+  fs.writeFileSync(
+    tempName,
+    template.replace("DATA", JSON.stringify(resolved.toArray()))
+  );
 
+  console.log("Written report to", tempName);
+
+  // Open in browser
+  open(tempName, { wait: false }).catch(error => {
+    console.error(`Unable to open web browser: ${error}`);
+    console.error("View HTML for the visualization at:");
+    console.error(tempName);
+  });
+})();

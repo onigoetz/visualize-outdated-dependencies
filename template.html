@@ -1,100 +1,314 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-            html {
-                font-family: sans-serif;
-                margin: 20px;
-            }
+  <head>
+    <style>
+      html {
+        font-family: sans-serif;
+        margin: 20px;
+        background: #efefef;
+        color: #333;
+      }
 
-        </style>
-    </head>
-    <body>
-        <h1>Outdated dependencies</h1>
-        <p>Red: outdated, Orange: has outdated dependencies, Green: all good</p>
-        <div id="root"></div>
-        <div id="report"></div>
+      .Heading {
+        margin: -0.5em 0 0.5em 0;
+        font-size: 1.6rem;
+      }
 
-        <script src="https://unpkg.com/sunburst-chart"></script>
-        <script>
+      .DependenciesList {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(400px, 1fr)
+        ); /* see notes below */
+        grid-gap: 1rem;
+      }
 
-        // Will be replaced at generation.
-        const data = DATA;
+      .Card {
+        border-radius: 5px;
+        box-shadow: 2px 2px 8px #bbbbbb;
+        padding: 0.5em;
+        background: white;
+      }
 
-        const GREEN = "#4caf50"; // 0
-        const ORANGE = "#ff9800"; // 1
-        const RED = "#f44336"; // 2
+      .Card__title {
+        line-height: 1.5em;
+        margin: 0;
+      }
 
-        const COLORS = [ GREEN, ORANGE, RED ];
+      .Badges {
+        position: absolute;
+        bottom: 2rem;
+        right: 1rem;
+      }
 
-        const chart = Sunburst();
-        chart
-            .data(data)
-            .width(window.innerWidth - 60)
-            .color(node => COLORS[node.color])
-            .tooltipContent(node => `${node.name}<br />Latest version: <strong>${node.latest}</strong>`)
-            (document.getElementById("root"));
+      .Badge {
+        border-radius: 3px;
+        line-height: 1;
+        padding: 0.25em 0.45em;
+        display: inline-block;
+        color: white;
+      }
 
-        const report = {};
+      .Badge--red {
+        background-color: #f44336;
+      }
 
-        function findOutdated(node) {
-            // Check current node
-            
-            if (node.color > 0) {
-                if (!report.hasOwnProperty(node.name)) {
-                    report[node.name] = {
-                        name: node.name,
-                        version: node.version,
-                        latest: node.latest,
-                        outdated: {}
-                    };
-                }
+      .Badge--orange {
+        background-color: #ff9800;
+      }
 
-                node.children.filter(child => child.color == 2).forEach(child => {
-                    report[node.name].outdated[child.name] = {
-                        name: child.name,
-                        version: child.version,
-                        latest: child.latest
-                    }
-                });
-            }
+      .Badge--green {
+        background-color: #4caf50;
+      }
 
+      .Table {
+        border-collapse: collapse;
+        width: 100%;
+      }
 
-            // Check for all children
-            if (node.children) {
-                node.children.forEach(child => findOutdated(child));
-            }
+      .Table th {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .Table th,
+      .Table td {
+        border: 1px solid #555;
+        padding: 0.25em;
+      }
+
+      .Table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .Table caption {
+        caption-side: top;
+        color: #777;
+        font-size: 0.8em;
+      }
+
+      .Breadcrumb {
+        padding: 0.25em;
+        border-top: 1px solid #ddd;
+        height: 1.5em;
+        line-height: 1.5em;
+      }
+
+      .Table + .Table {
+          margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="Heading">Outdated dependencies</h1>
+
+    <div
+      class="Card"
+      style="padding: 0; margin-bottom: 1rem; position: relative;"
+    >
+      <p class="Badges">
+        <span class="Badge Badge--red">Outdated package</span>
+        <span class="Badge Badge--orange">Contains outdated dependencies</span>
+        <span class="Badge Badge--green">All good</span>
+      </p>
+      <div id="root"></div>
+      <div id="breadcrumb" class="Breadcrumb"></div>
+    </div>
+
+    <div id="report"></div>
+
+    <script src="https://unpkg.com/sunburst-chart"></script>
+    <script>
+      // Will be replaced at generation.
+      const data = DATA;
+
+      const GREEN = "#4caf50"; // 0
+      const ORANGE = "#ff9800"; // 1
+      const RED = "#f44336"; // 2
+
+      const COLORS = [GREEN, ORANGE, RED];
+
+      const chart = Sunburst();
+      chart
+        .data(data)
+        .width(window.innerWidth - 60)
+        .height(window.innerHeight - 300)
+        .color((node) => COLORS[node.color])
+        .tooltipTitle((node) => node.name)
+        .onClick(showBreadcrumb)
+        .tooltipContent(
+          (node) => `Latest version: <strong>${node.latest}</strong>`
+        )(document.getElementById("root"));
+
+      const report = {};
+
+      function getNodeStack(d) {
+        const stack = [];
+        let curNode = d;
+        while (curNode) {
+          stack.unshift(curNode);
+          curNode = curNode.parent;
+        }
+        return stack;
+      }
+
+      function showBreadcrumb(node) {
+        const breadcrumb = getNodeStack(node.__dataNode)
+          .slice(1)
+          .map((d) => d.data.name)
+          .join(" &rarr; ");
+        document.getElementById("breadcrumb").innerHTML = breadcrumb;
+
+        chart.focusOnNode(node);
+      }
+
+      function getNameAndVersion(name) {
+        var rest = name.substring(0, name.lastIndexOf("@"));
+        var last = name.substring(name.lastIndexOf("@") + 1, name.length);
+
+        return [rest, last];
+      }
+
+      function toId(name) {
+        return name.replace(/@/g, "__").replace(/\//g, "__");
+      }
+
+      function addVersion(reportCard, reportData) {
+        const p = document.createElement("p");
+        p.appendChild(document.createTextNode("Current Version: "));
+        const currentVersion = document.createElement("strong");
+        currentVersion.innerText = reportData.version;
+        p.appendChild(currentVersion);
+
+        if (reportData.version != reportData.latest) {
+          p.appendChild(document.createTextNode(" Latest version "));
+          const latestVersion = document.createElement("strong");
+          latestVersion.innerText = reportData.latest;
+          p.appendChild(latestVersion);
         }
 
-        findOutdated(data);
+        reportCard.appendChild(p);
+      }
 
-        const outdatedPackages = Object.keys(report).sort();
-        const reportContainer = document.getElementById("report");
+      function addRow(table, cells, type = "td") {
+        const row = document.createElement("tr");
 
-        outdatedPackages.forEach(pack => {
-            const title = document.createElement("h2");
-            title.innerText = pack;
-            reportContainer.appendChild(title);
-
-            const reportData = report[pack];
-
-            if (reportData.version != reportData.latest) {
-                const p = document.createElement("p");
-                p.innerText = "A newer version of this package is available: " + reportData.latest;
-                reportContainer.appendChild(p);
-            }
-
-            const list = document.createElement("ul");
-            reportContainer.appendChild(list);
-
-            Object.keys(reportData.outdated).forEach(outdatedKey => {
-                const outdated = reportData.outdated[outdatedKey];
-                const item = document.createElement("li");
-                item.innerHTML = `${outdated.name} has a new version: ${outdated.latest}`
-                list.appendChild(item);
-            });
+        cells.forEach((cell) => {
+          const element = document.createElement(type);
+          element.innerText = cell;
+          row.appendChild(element);
         });
+
+        table.appendChild(row);
+      }
+
+      const usedBy = {};
+
+      function findOutdated(node) {
+        node.children.forEach((child) => {
+          if (!usedBy.hasOwnProperty(child.name)) {
+            usedBy[child.name] = new Set();
+          }
+
+          usedBy[child.name].add(node.name);
+        });
+
+        // Check current node
+        if (node.color > 0) {
+          if (!report.hasOwnProperty(node.name)) {
+            report[node.name] = {
+              name: node.name,
+              version: node.version,
+              latest: node.latest,
+              outdated: {},
+            };
+          }
+
+          node.children
+            .filter((child) => child.color === 2)
+            .forEach((child) => {
+              report[node.name].outdated[child.name] = {
+                name: child.name,
+                version: child.version,
+                latest: child.latest,
+              };
+            });
+        }
+
+        // Check for all children
+        if (node.children) {
+          node.children.forEach((child) => findOutdated(child));
+        }
+      }
+
+      findOutdated(data);
+
+      const outdatedPackages = Object.keys(report).sort();
+      const reportContainer = document.getElementById("report");
+      reportContainer.className = "DependenciesList";
+
+      outdatedPackages.forEach((pack) => {
+        const reportCard = document.createElement("div");
+        reportCard.className = "Card";
+        reportCard.id = toId(pack);
+
+        const [packageName, packageVersion] = getNameAndVersion(pack);
+
+        const title = document.createElement("h2");
+        title.className = "Card__title";
+        title.innerText = packageName;
+        reportCard.appendChild(title);
+
+        const reportData = report[pack];
+
+        addVersion(reportCard, reportData);
+
+        const outdatedDependencies = Object.keys(reportData.outdated);
+
+        if (outdatedDependencies.length > 0) {
+          const table = document.createElement("table");
+          table.className = "Table";
+
+          const tableCaption = document.createElement("caption");
+          tableCaption.innerText = "Outdated dependencies";
+          table.appendChild(tableCaption);
+
+          addRow(table, ["Package", "Current", "Latest"], "th");
+
+          Object.keys(reportData.outdated).forEach((outdatedKey) => {
+            const row = document.createElement("tr");
+
+            const outdated = reportData.outdated[outdatedKey];
+            const [name, version] = getNameAndVersion(outdated.name);
+
+            addRow(table, [name, version, outdated.latest]);
+          });
+
+          reportCard.appendChild(table);
+        }
+
+        if (usedBy.hasOwnProperty(pack)) {
+            const table = document.createElement("table");
+          table.className = "Table";
+
+          const tableCaption = document.createElement("caption");
+          tableCaption.innerText = "Used by";
+          table.appendChild(tableCaption);
+
+          addRow(table, ["Package", "Version"], "th");
         
-        </script>
-    </body>
+          usedBy[pack].forEach((usedByPackage) => {
+            const row = document.createElement("tr");
+            const [name, version] = getNameAndVersion(usedByPackage);
+
+            addRow(table, [name, version]);
+          });
+
+          reportCard.appendChild(table);
+        }
+
+        reportContainer.appendChild(reportCard);
+      });
+    </script>
+  </body>
 </html>
