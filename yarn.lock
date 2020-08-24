@@ -147,7 +147,7 @@
     node-gyp "^6.1.0"
     read-package-json-fast "^1.1.3"
 
-"@swissquote/crafty-preset-eslint@^1.12.0":
+"@swissquote/crafty-preset-eslint@1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-eslint/-/crafty-preset-eslint-1.12.0.tgz#acd38b67f19d90ea939e9776591d36469b6153c1"
   integrity sha512-tV/Xjj8dP09ALqJF260oat4sFYSI/ZVFmlbZiHPZdSw1AbcIwPX4mj5r4dP2S226KSFCO0j4K+2k2yH3sVdNpw==
@@ -167,7 +167,7 @@
   resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-prettier/-/crafty-preset-prettier-1.12.0.tgz#f066ffee405045f2d9dc1e8ff359a9ab1cc36642"
   integrity sha512-bAX3po6nN7DOCV8ZW6FTDdXdTiH5VHNi1fAUyCROvflQ96n9peJD6/DynHKfbJUoxP2ZqmTd3oyvyKWlEhsWIQ==
 
-"@swissquote/crafty@^1.12.0":
+"@swissquote/crafty@1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@swissquote/crafty/-/crafty-1.12.0.tgz#2aebf7428713daea0fe112cfc04f01f1121fcf95"
   integrity sha512-gRAPW16cQhFXew00OaHP9l+83p8GtHWdW4IthbqELhWwJJnRj8W/0mEegnXfXqy+LtZDF/Yl3IBmjdNI1nUBLw==
@@ -290,7 +290,7 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
-"@yarnpkg/lockfile@^1.0.2":
+"@yarnpkg/lockfile@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
@@ -439,7 +439,7 @@ are-we-there-yet@~1.1.2:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
 
-arg@^4.1.1:
+arg@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.3.tgz#269fc7ad5b8e42cb63c896d5666017261c144089"
   integrity sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==
@@ -858,7 +858,7 @@ cli-cursor@^3.1.0:
   dependencies:
     restore-cursor "^3.1.0"
 
-cli-progress@^3.4.0:
+cli-progress@3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.8.2.tgz#abaf1fc6d6401351f16f068117a410554a0eb8c7"
   integrity sha512-qRwBxLldMSfxB+YGFgNRaj5vyyHe1yMpVeDL79c+7puGujdKJHQHydgqXDcrkvQgJ5U/d3lpf6vffSoVVUftVQ==
@@ -1785,7 +1785,7 @@ glob-watcher@5.0.3:
     just-debounce "^1.0.0"
     object.defaults "^1.1.0"
 
-glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
+glob@7.1.6, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
@@ -2751,7 +2751,7 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-file-cache@^1.0.2:
+node-file-cache@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/node-file-cache/-/node-file-cache-1.0.2.tgz#237e33ca24fda360e86bf618b75cab619ef2ece3"
   integrity sha1-I34zyiT9o2Doa/YYt1yrYZ7y7OM=
@@ -3012,7 +3012,7 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-open@^7.0.0:
+open@7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/open/-/open-7.1.0.tgz#68865f7d3cb238520fa1225a63cf28bcf8368a1c"
   integrity sha512-lLPI5KgOwEYCDKXf4np7y1PBEkj7HYIyP2DY8mVDRnx0VIIu6bNrRB0R66TuO7Mack6EnTNLm4uvcl1UoklTpA==
@@ -3095,7 +3095,7 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-pacote@^11.1.11:
+pacote@11.1.11:
   version "11.1.11"
   resolved "https://registry.yarnpkg.com/pacote/-/pacote-11.1.11.tgz#84f435f4f16c9159c7e1bc05c3e167675843c8ca"
   integrity sha512-r6PHtCEhkaGv+QPx1JdE/xRdkSkZUG7dE2oloNk/CGTPGNOtaJyYqZPFeN6d6UcUrTPRvZXFo3IBzJIBopPuSA==
@@ -3916,7 +3916,7 @@ tar@^6.0.1, tar@^6.0.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-temp@^0.9.1:
+temp@0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/temp/-/temp-0.9.1.tgz#2d666114fafa26966cd4065996d7ceedd4dd4697"
   integrity sha512-WMuOgiua1xb5R56lE0eH6ivpVmg/lq2OHm4+LtT/xtEtPQ+sz6N3bBM6WZ5FvO1lO4IKIOb43qnhoc4qxP5OeA==
