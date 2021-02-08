@@ -24,7 +24,7 @@
     "glob": "7.1.6",
     "node-file-cache": "1.0.2",
     "open": "7.4.0",
-    "pacote": "11.2.4",
+    "pacote": "11.2.6",
     "temp": "0.9.4"
   },
   "bin": {
