@@ -24,15 +24,15 @@
     "glob": "7.1.6",
     "node-file-cache": "1.0.2",
     "open": "8.0.6",
-    "pacote": "11.2.6",
+    "pacote": "11.3.3",
     "temp": "0.9.4"
   },
   "bin": {
     "outdated-dependencies": "index.js"
   },
   "devDependencies": {
-    "@swissquote/crafty": "1.13.7",
-    "@swissquote/crafty-preset-eslint": "1.13.7"
+    "@swissquote/crafty": "1.14.0",
+    "@swissquote/crafty-preset-eslint": "1.14.0"
   },
   "scripts": {
     "lint": "crafty --preset @swissquote/crafty-preset-eslint jsLint *.js --preset recommended --preset node --fix"
