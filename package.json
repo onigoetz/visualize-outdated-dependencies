@@ -23,7 +23,7 @@
     "cli-progress": "3.9.0",
     "glob": "7.1.6",
     "node-file-cache": "1.0.2",
-    "open": "8.0.6",
+    "open": "8.0.7",
     "pacote": "11.3.3",
     "temp": "0.9.4"
   },
