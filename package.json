@@ -21,9 +21,9 @@
     "@yarnpkg/lockfile": "1.1.0",
     "arg": "5.0.0",
     "cli-progress": "3.9.0",
-    "glob": "7.1.6",
+    "glob": "7.1.7",
     "node-file-cache": "1.0.2",
-    "open": "8.0.7",
+    "open": "8.0.8",
     "pacote": "11.3.3",
     "temp": "0.9.4"
   },
