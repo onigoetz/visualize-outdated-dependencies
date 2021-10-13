@@ -347,24 +347,24 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@swissquote/babel-preset-swissquote@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/babel-preset-swissquote/-/babel-preset-swissquote-1.16.1.tgz#423e3c8721b386985be262d06bb3c9cc3bdd194d"
-  integrity sha512-rlI8mQVgjwPJdA+ZWKkJTtMFf/XRpEfjlKD0V4xlt5X84dQD94/3HAfMiRFkv4/3T9uAm8Krpq+ca6JlGSkftQ==
+"@swissquote/babel-preset-swissquote@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/babel-preset-swissquote/-/babel-preset-swissquote-1.16.3.tgz#d43b8696943c058f8beaec057d1968e0401734b2"
+  integrity sha512-A8bWFroNNo70kHb60r3vYzTUXVQqXvNEsJTFHcNsqATV1/XWebMzq7v/2BUn9y42SzeaUWjsTeqQEfeNExvh+A==
   dependencies:
     "@babel/core" "7.15.8"
     "@babel/runtime" "7.15.4"
     debug "^4.1.0"
     find-up "5.0.0"
 
-"@swissquote/crafty-preset-eslint@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-eslint/-/crafty-preset-eslint-1.16.1.tgz#9368ce6dcdf96ee54e7893f09aea18e66c1e8833"
-  integrity sha512-/52gemkctVSCpNrO5X7LNY5YuB74FWvQXRV86oxwfKmYNPjEGClKUvndNjqfxsjTPeYs65rdGT6iLGLVe0VLOw==
+"@swissquote/crafty-preset-eslint@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-eslint/-/crafty-preset-eslint-1.16.3.tgz#251600f94edf6abbfaca4bae9e59b66ab2c14771"
+  integrity sha512-yTDRrpJho5E5Y5YQubVaph78JPYUtvqhiDDLp8uX4Hc3p0spOQHk6TyY5anhF5Kmwi+O3piY9kisqF7RmBIEYw==
   dependencies:
-    "@swissquote/crafty-preset-prettier" "1.16.1"
-    "@swissquote/eslint-plugin-swissquote" "1.16.1"
-    "@swissquote/rollup-plugin-eslint" "1.16.1"
+    "@swissquote/crafty-preset-prettier" "1.16.3"
+    "@swissquote/eslint-plugin-swissquote" "1.16.3"
+    "@swissquote/rollup-plugin-eslint" "1.16.3"
     copy-anything "2.0.3"
     debug "^4.1.0"
     eslint "7.32.0"
@@ -373,15 +373,15 @@
     resolve-from "5.0.0"
     tmp "0.2.1"
 
-"@swissquote/crafty-preset-prettier@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-prettier/-/crafty-preset-prettier-1.16.1.tgz#bb002b1d63781a2e7144b16637531d89aa5d66b4"
-  integrity sha512-OlHVJ8A2cQOiVB4gPVNF5cCrIZg9rqcOMwL4KnuJalKwU7+mT3jUZqBzsAkcUmsd9pVvYZnA2RReEnJfGO1ZjA==
+"@swissquote/crafty-preset-prettier@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-prettier/-/crafty-preset-prettier-1.16.3.tgz#6fdb3ac8bc68d79b074c227d94b505f9ff9f27bf"
+  integrity sha512-LeXJ7WQh9NGejg+5vN70xU5HWot0UEaYEtBPg2p3ITnO7sx6shOsQ+ncdJy1saj0Tg3MvfFXwATPg4V6gU0gMQ==
 
-"@swissquote/crafty@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty/-/crafty-1.16.1.tgz#8933655c2ad9d97c9bb9cd2b5210a1049ab12a6d"
-  integrity sha512-LHuXn6YFnezsd/c0HYsCaq/7Vrwa7x1LKLqzD+868g4Rk2F0NeRi8UGORndnplI+BTaD844ZHFWE2vOU9GYFLw==
+"@swissquote/crafty@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty/-/crafty-1.16.3.tgz#2c7daf1a0571e6239bffd691d982808985ae39ae"
+  integrity sha512-hLKJJCc77UGzQlS+7hrROy2wvuGxrM9Ya4g88RRti14npUEnP2RDWQZSdlDTPT1NuX/kzGJQfZ3BY/PmXT9vrA==
   dependencies:
     ansi-colors "^4.0.0"
     anymatch "3.1.2"
@@ -403,30 +403,30 @@
     undertaker "1.3.0"
     yargs-parser "20.2.9"
 
-"@swissquote/eslint-plugin-swissquote@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/eslint-plugin-swissquote/-/eslint-plugin-swissquote-1.16.1.tgz#7147a4c1b5814d6a2a52cd1987d57fd1ea8d54ea"
-  integrity sha512-vWHcyBdzkVB2S3dtA8q97+vTfLYYnAMoyNuihjPdSV7VYwtfxlho0skenQsmEoFitV1ckimBK71Qy/pYR74+Ww==
+"@swissquote/eslint-plugin-swissquote@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/eslint-plugin-swissquote/-/eslint-plugin-swissquote-1.16.3.tgz#ff2c15ec8dcdbc3e671855c6c2796d4340f5190f"
+  integrity sha512-6KxnIY+3B5CF/j1gP6RSdvVvFd0Lt2mEA9zQhKKz1X1lhVYgEXlzlU9yJOHA+I9L36fqq/rdwTGuL4f0TS3r1Q==
   dependencies:
     "@babel/eslint-parser" "7.15.8"
-    "@swissquote/babel-preset-swissquote" "1.16.1"
+    "@swissquote/babel-preset-swissquote" "1.16.3"
     "@typescript-eslint/eslint-plugin" "5.0.0"
     "@typescript-eslint/parser" "5.0.0"
     confusing-browser-globals "1.0.10"
     eslint-config-prettier "8.3.0"
     eslint-import-resolver-typescript "2.5.0"
-    eslint-plugin-import "2.25.1"
+    eslint-plugin-import "2.25.2"
     eslint-plugin-prettier "3.4.1"
     eslint-plugin-react "7.26.1"
     eslint-plugin-react-hooks "4.2.0"
     eslint-plugin-sonarjs "0.10.0"
     prettier "1.19.1"
-    typescript "4.4.3"
+    typescript "4.4.4"
 
-"@swissquote/rollup-plugin-eslint@1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/rollup-plugin-eslint/-/rollup-plugin-eslint-1.16.1.tgz#1ac8822b9b92ab2ceab69908c0f97c743d030bac"
-  integrity sha512-JteDLDe5tBtkrAL7SdCXRv9pDVR0XaJf7YDh7+MXAzAAuFQMta+cb70VzKENkJ5t3PtzvcCKnUyQZURI7G9rAg==
+"@swissquote/rollup-plugin-eslint@1.16.3":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/rollup-plugin-eslint/-/rollup-plugin-eslint-1.16.3.tgz#13962cd17ebc1bfb95789572321e580eb07912ee"
+  integrity sha512-KI1sMoY/mJ4/+0C0SyEjA5Rp+gn0olSKFM7NmQQPnhofxxfwLTaFPdcx95nAHOd1cyzyjCDF3xlHudA90FS/8A==
   dependencies:
     "@rollup/pluginutils" "4.1.1"
     eslint "7.32.0"
@@ -1289,7 +1289,7 @@ eslint-import-resolver-typescript@2.5.0:
     resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
 
-eslint-module-utils@^2.6.2:
+eslint-module-utils@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.7.0.tgz#9e97c12688113401259b39d960e6a1f09f966435"
   integrity sha512-hqSE88MmHl3ru9SYvDyGrlo0JwROlf9fiEMplEV7j/EAuq9iSlIlyCFbBT6pdULQBSnBYtYKiMLps+hKkyP7Gg==
@@ -1298,17 +1298,17 @@ eslint-module-utils@^2.6.2:
     find-up "^2.1.0"
     pkg-dir "^2.0.0"
 
-eslint-plugin-import@2.25.1:
-  version "2.25.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.25.1.tgz#b4b23bef08309f91303e528b13ecdffc42f8bb89"
-  integrity sha512-YiQtY+ehqQXb6dvdrFUVdl3hsTvl+g3aKoTLZFIy1j/mKxjrLcRISI2rA7dNmEReJdr5xzjLld6vJ8pC1bfCfw==
+eslint-plugin-import@2.25.2:
+  version "2.25.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.25.2.tgz#b3b9160efddb702fc1636659e71ba1d10adbe9e9"
+  integrity sha512-qCwQr9TYfoBHOFcVGKY9C9unq05uOxxdklmBXLVvcwo68y5Hta6/GzCZEMx2zQiu0woKNEER0LE7ZgaOfBU14g==
   dependencies:
     array-includes "^3.1.4"
     array.prototype.flat "^1.2.5"
     debug "^2.6.9"
     doctrine "^2.1.0"
     eslint-import-resolver-node "^0.3.6"
-    eslint-module-utils "^2.6.2"
+    eslint-module-utils "^2.7.0"
     has "^1.0.3"
     is-core-module "^2.7.0"
     is-glob "^4.0.3"
@@ -1803,10 +1803,10 @@ iconv-lite@^0.6.2:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
-ignore-walk@^3.0.3:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/ignore-walk/-/ignore-walk-3.0.4.tgz#c9a09f69b7c7b479a5d74ac1a3c0d4236d2a6335"
-  integrity sha512-PY6Ii8o1jMRA1z4F2hRkH/xN59ox43DavKvD3oDpfurRlOJyAHpifIwpbdv1n4jt4ov0jSpw3kQ4GhJnpBL6WQ==
+ignore-walk@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ignore-walk/-/ignore-walk-4.0.1.tgz#fc840e8346cf88a3a9380c5b17933cd8f4d39fa3"
+  integrity sha512-rzDQLaW4jQbh2YrOFlJdCtX8qgJTehFRYiUB2r1osqTeDzV/3+Jh8fz1oAPzUThf3iku8Ds4IDqawI5d8mUiQw==
   dependencies:
     minimatch "^3.0.4"
 
@@ -2495,13 +2495,13 @@ npm-package-arg@^8.0.0, npm-package-arg@^8.0.1, npm-package-arg@^8.1.2:
     semver "^7.3.4"
     validate-npm-package-name "^3.0.0"
 
-npm-packlist@^2.1.4:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-2.2.2.tgz#076b97293fa620f632833186a7a8f65aaa6148c8"
-  integrity sha512-Jt01acDvJRhJGthnUJVF/w6gumWOZxO7IkpY/lsX9//zqQgnF7OJaxgQXcerd4uQOLu7W5bkb4mChL9mdfm+Zg==
+npm-packlist@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-3.0.0.tgz#0370df5cfc2fcc8f79b8f42b37798dd9ee32c2a9"
+  integrity sha512-L/cbzmutAwII5glUcf2DBRNY/d0TFd4e/FnaZigJV6JD85RHZXJFGwCndjMWiiViiWSsWt3tiOLpI3ByTnIdFQ==
   dependencies:
     glob "^7.1.6"
-    ignore-walk "^3.0.3"
+    ignore-walk "^4.0.1"
     npm-bundled "^1.1.1"
     npm-normalize-package-bin "^1.0.1"
 
@@ -2688,10 +2688,10 @@ p-try@^1.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
   integrity sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=
 
-pacote@12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/pacote/-/pacote-12.0.0.tgz#5bf4491f3301ffe459290b26a518bf536e8bcc52"
-  integrity sha512-5DnYqZU0w7GIskuc5yXii1kKpQS2fsaxCaI0FXRsMULXB06lXnZpRdV7JC1TTcQN5uy62h4VWS4WMPYGWu3MYg==
+pacote@12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/pacote/-/pacote-12.0.2.tgz#14ae30a81fe62ec4fc18c071150e6763e932527c"
+  integrity sha512-Ar3mhjcxhMzk+OVZ8pbnXdb0l8+pimvlsqBGRNkble2NVgyqOGE3yrCGi/lAYq7E7NRDMz89R1Wx5HIMCGgeYg==
   dependencies:
     "@npmcli/git" "^2.1.0"
     "@npmcli/installed-package-contents" "^1.0.6"
@@ -2704,7 +2704,7 @@ pacote@12.0.0:
     minipass "^3.1.3"
     mkdirp "^1.0.3"
     npm-package-arg "^8.0.1"
-    npm-packlist "^2.1.4"
+    npm-packlist "^3.0.0"
     npm-pick-manifest "^6.0.0"
     npm-registry-fetch "^11.0.0"
     promise-retry "^2.0.1"
@@ -3325,10 +3325,10 @@ type@^2.5.0:
   resolved "https://registry.yarnpkg.com/type/-/type-2.5.0.tgz#0a2e78c2e77907b252abe5f298c1b01c63f0db3d"
   integrity sha512-180WMDQaIMm3+7hGXWf12GtdniDEy7nYcyFMKJn/eZz/6tSLXrUN9V0wKSbMjej0I1WHWbpREDEKHtqPQa9NNw==
 
-typescript@4.4.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
-  integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
+typescript@4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
+  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
