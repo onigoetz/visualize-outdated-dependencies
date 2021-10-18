@@ -1,15 +1,18 @@
+const prettyBytes = require('pretty-bytes');
+
 // Colors
 const GREEN = 0;
 const ORANGE = 1;
 const RED = 2;
 
 module.exports = class Node {
-  constructor(parent, name, currentVersion, latestVersion, verbose) {
+  constructor(parent, name, currentVersion, latestVersion, size, verbose) {
     this.parent = parent;
     this.name = name;
     this.version = currentVersion;
     this.latestVersion = latestVersion;
     this.children = [];
+    this.size = size;
     this.verbose = verbose;
   }
 
@@ -63,6 +66,27 @@ module.exports = class Node {
     return false;
   }
 
+  getSize() {
+    return this.size /*+ this.children
+      .map(node => {
+        if (node.isCircularDependency(node.name, node.version)) {
+          if (this.verbose) {
+            const pv = `${node.name}@${node.version}`;
+            const parents = node.getParents().join(" => ");
+            console.log(
+              `Circular dependency on ${pv}, cutting here: ${parents}`
+            );
+          }
+
+          return 0;
+        }
+
+        return node.getSize();
+
+      })
+      .reduce((previous, current) => previous + current, 0);*/
+  }
+
   toArray() {
     const children = this.children
       .filter(node => {
@@ -85,10 +109,14 @@ module.exports = class Node {
       })
       .map(node => node.toArray());
 
+    const size = this.getSize();
+
     const node = {
       name: `${this.name}@${this.version}`,
       version: this.version,
       latest: this.latestVersion,
+      size,
+      sizeF: prettyBytes(size),
       children,
       value: children.length || 1,
       color: GREEN

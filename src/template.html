@@ -25,7 +25,7 @@
 
       .Card {
         border-radius: 5px;
-        box-shadow: 2px 2px 8px #bbbbbb;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16), 0 3px 3px 0 rgba(0, 0, 0, 0.23);
         padding: 0.5em;
         background: white;
       }
@@ -120,7 +120,7 @@
     <script src="https://unpkg.com/sunburst-chart"></script>
     <script>
       // Will be replaced at generation.
-      const data = DATA;
+      const data = JSON.parse(DATA);
 
       const GREEN = "#4caf50"; // 0
       const ORANGE = "#ff9800"; // 1
@@ -137,7 +137,7 @@
         .tooltipTitle((node) => node.name)
         .onClick(showBreadcrumb)
         .tooltipContent(
-          (node) => `Latest version: <strong>${node.latest}</strong>`
+          (node) => `Latest version: <strong>${node.latest}</strong>, Size <strong>${node.sizeF}</strong>`
         )(document.getElementById("root"));
 
       const report = {};
@@ -153,10 +153,10 @@
       }
 
       function showBreadcrumb(node) {
-        const breadcrumb = getNodeStack(node.__dataNode)
+        const breadcrumb = node ? getNodeStack(node.__dataNode)
           .slice(1)
           .map((d) => d.data.name)
-          .join(" &rarr; ");
+          .join(" &rarr; ") : "";
         document.getElementById("breadcrumb").innerHTML = breadcrumb;
 
         chart.focusOnNode(node);
@@ -296,7 +296,7 @@
           table.appendChild(tableCaption);
 
           addRow(table, ["Package", "Version"], "th");
-        
+
           usedBy[pack].forEach((usedByPackage) => {
             const row = document.createElement("tr");
             const [name, version] = getNameAndVersion(usedByPackage);

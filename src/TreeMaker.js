@@ -4,8 +4,9 @@ const glob = require("glob");
 const Node = require("./Node.js");
 
 module.exports = class TreeMaker {
-  constructor(lockfileDependencies, latestVersion, verbose) {
+  constructor(lockfileDependencies, latestVersion, sizes, verbose) {
     this.latestVersions = latestVersion;
+    this.sizes = sizes;
     this.lockfileDependencies = lockfileDependencies;
     this.workspacePackages = [];
     this.verbose = verbose;
@@ -13,6 +14,10 @@ module.exports = class TreeMaker {
 
   getLatestVersion(currentPackage) {
     return this.latestVersions[currentPackage] || null;
+  }
+
+  getSize(pack, version) {
+    return this.sizes[`${pack}@${version}`] || null;
   }
 
   getCurrentVersion(currentPackage, requestedVersion) {
@@ -84,6 +89,7 @@ module.exports = class TreeMaker {
       file.name,
       file.version,
       file.version,
+      0,
       this.verbose
     );
 
@@ -113,6 +119,7 @@ module.exports = class TreeMaker {
       currentPackage,
       currentVersion,
       this.getLatestVersion(currentPackage),
+      this.getSize(currentPackage, currentVersion),
       this.verbose
     );
 
