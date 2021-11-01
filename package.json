@@ -32,8 +32,8 @@
     "outdated-dependencies": "src/bin.js"
   },
   "devDependencies": {
-    "@swissquote/crafty": "1.16.3",
-    "@swissquote/crafty-preset-eslint": "1.16.3"
+    "@swissquote/crafty": "1.17.1",
+    "@swissquote/crafty-preset-eslint": "1.17.1"
   },
   "scripts": {
     "lint": "crafty --preset @swissquote/crafty-preset-eslint jsLint *.js --preset recommended --preset node --fix"
