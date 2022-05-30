@@ -24,7 +24,7 @@
     "glob": "8.0.3",
     "node-file-cache": "1.0.2",
     "open": "8.4.0",
-    "pacote": "13.4.1",
+    "pacote": "13.5.0",
     "pretty-bytes": "6.0.0",
     "temp": "0.9.4"
   },
