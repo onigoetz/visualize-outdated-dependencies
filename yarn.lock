@@ -721,7 +721,7 @@ glob-parent@^6.0.1:
   dependencies:
     is-glob "^4.0.3"
 
-glob@8.0.3, glob@^8.0.1:
+glob@8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-8.0.3.tgz#415c6eb2deed9e502c68fa44a272e6da6eeca42e"
   integrity sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==
@@ -1241,7 +1241,7 @@ normalize-package-data@^4.0.0:
     semver "^7.3.5"
     validate-npm-package-license "^3.0.4"
 
-npm-bundled@^1.1.1, npm-bundled@^1.1.2:
+npm-bundled@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.1.2.tgz#944c78789bd739035b70baa2ca5cc32b8d860bc1"
   integrity sha512-x5DHup0SuyQcmL3s7Rx/YQ8sbw/Hzg0rj48eN0dV7hf5cmQq5PXIeioroH3raV1QC1yh3uTYuMThvEQF3iKgGQ==
@@ -1269,15 +1269,12 @@ npm-package-arg@^9.0.0, npm-package-arg@^9.0.1:
     semver "^7.3.5"
     validate-npm-package-name "^3.0.0"
 
-npm-packlist@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-5.1.0.tgz#f3fd52903a021009913a133732022132eb355ce7"
-  integrity sha512-a04sqF6FbkyOAFA19AA0e94gS7Et5T2/IMj3VOT9nOF2RaRdVPQ1Q17Fb/HaDRFs+gbC7HOmhVZ29adpWgmDZg==
+npm-packlist@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-7.0.0.tgz#d451b7d797d4b05128796d9573d69be51fdf8f31"
+  integrity sha512-8GRMzWQmFdUrRmc6tPPCd9Umm9g2qDR6X6Rik+9nYvoDQTLs/0IcCKv6iUdAmgr9sgJCm24QovwozCHWMDriOg==
   dependencies:
-    glob "^8.0.1"
     ignore-walk "^5.0.1"
-    npm-bundled "^1.1.2"
-    npm-normalize-package-bin "^1.0.1"
 
 npm-pick-manifest@^7.0.0:
   version "7.0.0"
@@ -1361,10 +1358,10 @@ p-map@^4.0.0:
   dependencies:
     aggregate-error "^3.0.0"
 
-pacote@13.6.2:
-  version "13.6.2"
-  resolved "https://registry.yarnpkg.com/pacote/-/pacote-13.6.2.tgz#0d444ba3618ab3e5cd330b451c22967bbd0ca48a"
-  integrity sha512-Gu8fU3GsvOPkak2CkbojR7vjs3k3P9cA6uazKTHdsdV0gpCEQq2opelnEv30KRQWgVzP5Vd/5umjcedma3MKtg==
+pacote@14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/pacote/-/pacote-14.0.0.tgz#aff1d9ac0fb420eb79187b291ecded20b370d8d3"
+  integrity sha512-SYXfAQi7Bj+suydMz7lVnEF4/xNIvP+uobXGPwIUdFPkUxoOBHYxCakMXHGQQZ9lIHLj2IXTJ6BeWSe6U/uAYg==
   dependencies:
     "@npmcli/git" "^3.0.0"
     "@npmcli/installed-package-contents" "^1.0.7"
@@ -1377,7 +1374,7 @@ pacote@13.6.2:
     minipass "^3.1.6"
     mkdirp "^1.0.4"
     npm-package-arg "^9.0.0"
-    npm-packlist "^5.1.0"
+    npm-packlist "^7.0.0"
     npm-pick-manifest "^7.0.0"
     npm-registry-fetch "^13.0.1"
     proc-log "^2.0.0"
