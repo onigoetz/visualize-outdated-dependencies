@@ -20,20 +20,20 @@
   "dependencies": {
     "@yarnpkg/lockfile": "1.1.0",
     "arg": "5.0.2",
-    "cli-progress": "3.11.2",
-    "glob": "8.0.3",
+    "cli-progress": "3.12.0",
+    "glob": "8.1.0",
     "node-file-cache": "1.0.2",
-    "open": "8.4.0",
+    "open": "8.4.2",
     "pacote": "14.0.0",
-    "pretty-bytes": "6.0.0",
+    "pretty-bytes": "6.1.0",
     "temp": "0.9.4"
   },
   "bin": {
     "outdated-dependencies": "src/bin.js"
   },
   "devDependencies": {
-    "@swissquote/crafty": "1.20.0",
-    "@swissquote/crafty-preset-eslint": "1.20.0"
+    "@swissquote/crafty": "1.21.1",
+    "@swissquote/crafty-preset-eslint": "1.21.1"
   },
   "scripts": {
     "lint": "crafty --preset @swissquote/crafty-preset-eslint jsLint *.js --preset recommended --preset node --fix"
