@@ -29,10 +29,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@8.38.0":
-  version "8.38.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.38.0.tgz#73a8a0d8aa8a8e6fe270431c5e72ae91b5337892"
-  integrity sha512-IoD2MfUnOV58ghIHCiil01PcohxjbYR/qCxsoC+xNgUwh1EY8jOOrYmu3d3a71+tJJ23uscEV4X2HJWMsPJu4g==
+"@eslint/js@8.39.0":
+  version "8.39.0"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.39.0.tgz#58b536bcc843f4cd1e02a7e6171da5c040f4d44b"
+  integrity sha512-kf9RB0Fg7NZfap83B3QOqOGg9QmD9yBudqQXzzOtn3i4y7ZUXe5ONeW34Gwi+TxhH4mvj72R1Zc300KUMa9Bng==
 
 "@gar/promisify@^1.1.3":
   version "1.1.3"
@@ -157,45 +157,45 @@
   resolved "https://registry.yarnpkg.com/@sigstore/protobuf-specs/-/protobuf-specs-0.1.0.tgz#957cb64ea2f5ce527cc9cf02a096baeb0d2b99b4"
   integrity sha512-a31EnjuIDSX8IXBUib3cYLDRlPMU36AWX4xS8ysLaNu4ZzUesDiPt83pgrW2X1YLMe5L2HbDyaKK5BrL4cNKaQ==
 
-"@swissquote/crafty-commons@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty-commons/-/crafty-commons-1.22.1.tgz#c8ba9474d10e0703ea73065fdf7fc010a3f5f6fa"
-  integrity sha512-g8nAxplX/5JqPau2gGhYhPsUvR1kdty+s9/9YlrxQZGtfnNsLUpZxUj1UB4kYQNFMxWysgpH4e0FEt0a6m5A1Q==
+"@swissquote/crafty-commons@1.22.3":
+  version "1.22.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty-commons/-/crafty-commons-1.22.3.tgz#bbec8dbf1a7e2853b473189e2ec0dffd0cbf3d96"
+  integrity sha512-LFj4lBdC5YhweVaGRGrzienhsQpUuOh9rmc4MbdyUm8/3RSJIC0vevl3FLEOtE5shsByXtWzr1ofS6/sPK9fjw==
   dependencies:
     caniuse-lite "^1.0.30001478"
 
-"@swissquote/crafty-preset-eslint@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-eslint/-/crafty-preset-eslint-1.22.1.tgz#6d7d51fc3a893fc221eb77c95a9f82d92caf19d9"
-  integrity sha512-tIIJYN0LiyfMg/01+Iwg6kl9NtwkZMkNBaoZxtIatW0BeqNJTUoPJvqeBEMnCWnhZie3pWJ6xJmUCMA6xxmSiQ==
+"@swissquote/crafty-preset-eslint@1.22.3":
+  version "1.22.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-eslint/-/crafty-preset-eslint-1.22.3.tgz#6e11ee51cf52c71be349435b0d8fb7e5d86c265d"
+  integrity sha512-APc48f1n/u6USQ2erlTkZARssBUEgQNpuPFmjU8A09nm/E8qMRG7BwLw7n6O0sRdy6NiDwBfrGvqyI68Ykgeng==
   dependencies:
-    "@swissquote/crafty" "1.22.1"
-    "@swissquote/crafty-commons" "1.22.1"
-    "@swissquote/crafty-preset-prettier" "1.22.1"
-    "@swissquote/eslint-plugin-swissquote" "1.22.1"
-    eslint "8.38.0"
+    "@swissquote/crafty" "1.22.3"
+    "@swissquote/crafty-commons" "1.22.3"
+    "@swissquote/crafty-preset-prettier" "1.22.3"
+    "@swissquote/eslint-plugin-swissquote" "1.22.3"
+    eslint "8.39.0"
     schema-utils "4.0.1"
 
-"@swissquote/crafty-preset-prettier@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-prettier/-/crafty-preset-prettier-1.22.1.tgz#fec0d81ea7c538313c45f771fecd059f0302220c"
-  integrity sha512-ogLsOc8QMHs3wOG7YkFa1H2PBQW/ndtgSlwOawA3UMKfqIgZPOdVPnOikx+43G84/EoSndw2IXPjMlOIdnBYkg==
+"@swissquote/crafty-preset-prettier@1.22.3":
+  version "1.22.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty-preset-prettier/-/crafty-preset-prettier-1.22.3.tgz#f4d31c4bb03858c7142ee919d5cb38f3d7a073cd"
+  integrity sha512-1wHcT3z//nrUsie60KYZdusTzY5IU8jAjJV4Eevjvpc6V7jSsROS/hWe0W6Ja1nvgBx48cXMmHT+4Ap25T/Spw==
 
-"@swissquote/crafty@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/crafty/-/crafty-1.22.1.tgz#0d7218b54eb8432287e8463d517888bbebb75342"
-  integrity sha512-XHXzG68hNStbxM9G8XvQfp23MqaOr7WZzGEyvp0EPWiyoYsDUmaTKjFWO3hM83PvjOae56PAsNK9qiczmhpg2Q==
+"@swissquote/crafty@1.22.3":
+  version "1.22.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/crafty/-/crafty-1.22.3.tgz#e8a4af1247756866631e2902b7bd82d90b42822f"
+  integrity sha512-RSrT1ErUmmrOE3zKIychCSHGcU3KPm5L09DiNjiPAs9ZvAvKzRuaL1yHqzROweJAYIoSVq3jApf+MiqLsDSTCA==
   dependencies:
-    "@swissquote/crafty-commons" "1.22.1"
+    "@swissquote/crafty-commons" "1.22.3"
   optionalDependencies:
     fsevents "~2.3.2"
 
-"@swissquote/eslint-plugin-swissquote@1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@swissquote/eslint-plugin-swissquote/-/eslint-plugin-swissquote-1.22.1.tgz#a7a9506d6258e5c4602398d62ce57ece0b9e0641"
-  integrity sha512-t7V8htme7NnG9GS7mTyYHYwGzO0HzGBYnUwfHqGgllKcWLh6nCnGXSzvMCMjgyjZIW/LiLf9tRLg8EQAidOXKA==
+"@swissquote/eslint-plugin-swissquote@1.22.3":
+  version "1.22.3"
+  resolved "https://registry.yarnpkg.com/@swissquote/eslint-plugin-swissquote/-/eslint-plugin-swissquote-1.22.3.tgz#e88ac999f5b74e857fab5051082c8e918052dfe4"
+  integrity sha512-RKSeOaBxjTcJIuTxrX1+aHhJE6Kt0wYKqLxqJiOVoEjR99pW4FzTrpN24QSqG02vjweY6siCLVxYpNb0A9kHGg==
   dependencies:
-    "@swissquote/crafty-commons" "1.22.1"
+    "@swissquote/crafty-commons" "1.22.3"
     typescript "5.0.4"
 
 "@tootallnate/once@2":
@@ -599,10 +599,10 @@ escape-string-regexp@^4.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
-eslint-scope@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-7.1.1.tgz#fff34894c2f65e5226d3041ac480b4513a163642"
-  integrity sha512-QKQM/UXpIiHcLqJ5AOyIW7XZmzjkzQXYE54n1++wb0u9V/abW3l9uQnxX8Z5Xd18xyKIMTUAyQ0k1e8pz6LUrw==
+eslint-scope@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-7.2.0.tgz#f21ebdafda02352f103634b96dd47d9f81ca117b"
+  integrity sha512-DYj5deGlHBfMt15J7rdtyKNq/Nqlv5KfU4iodrQ019XESsRnwXH9KAE0y3cwtUHDo2ob7CypAnCqefh6vioWRw==
   dependencies:
     esrecurse "^4.3.0"
     estraverse "^5.2.0"
@@ -617,15 +617,15 @@ eslint-visitor-keys@^3.4.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-3.4.0.tgz#c7f0f956124ce677047ddbc192a68f999454dedc"
   integrity sha512-HPpKPUBQcAsZOsHAFwTtIKcYlCje62XB7SEAcxjtmW6TD1WVpkS6i6/hOVtTZIl4zGj/mBqpFVGvaDneik+VoQ==
 
-eslint@8.38.0:
-  version "8.38.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.38.0.tgz#a62c6f36e548a5574dd35728ac3c6209bd1e2f1a"
-  integrity sha512-pIdsD2jwlUGf/U38Jv97t8lq6HpaU/G9NKbYmpWpZGw3LdTNhZLbJePqxOXGB5+JEKfOPU/XLxYxFh03nr1KTg==
+eslint@8.39.0:
+  version "8.39.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.39.0.tgz#7fd20a295ef92d43809e914b70c39fd5a23cf3f1"
+  integrity sha512-mwiok6cy7KTW7rBpo05k6+p4YVZByLNjAZ/ACB9DRCu4YDRwjXI01tWHp6KAUWelsBetTxKK/2sHB0vdS8Z2Og==
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.4.0"
     "@eslint/eslintrc" "^2.0.2"
-    "@eslint/js" "8.38.0"
+    "@eslint/js" "8.39.0"
     "@humanwhocodes/config-array" "^0.11.8"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@nodelib/fs.walk" "^1.2.8"
@@ -635,7 +635,7 @@ eslint@8.38.0:
     debug "^4.3.2"
     doctrine "^3.0.0"
     escape-string-regexp "^4.0.0"
-    eslint-scope "^7.1.1"
+    eslint-scope "^7.2.0"
     eslint-visitor-keys "^3.4.0"
     espree "^9.5.1"
     esquery "^1.4.2"
@@ -1618,10 +1618,10 @@ p-map@^4.0.0:
   dependencies:
     aggregate-error "^3.0.0"
 
-pacote@15.1.2:
-  version "15.1.2"
-  resolved "https://registry.yarnpkg.com/pacote/-/pacote-15.1.2.tgz#78b4c1403231fab368c752943f1969c6d8f026bb"
-  integrity sha512-EAGJrMiIjBTBB6tWGrx9hFJTOo14B3HSAoa/W9SawFEBhUqjxN7qqaFlGVF9jfY/mIri8Mb2xafmkRgWxYXxIQ==
+pacote@15.1.3:
+  version "15.1.3"
+  resolved "https://registry.yarnpkg.com/pacote/-/pacote-15.1.3.tgz#4c0e7fb5e7ab3b27fb3f86514b451ad4c4f64e9d"
+  integrity sha512-aRts8cZqxiJVDitmAh+3z+FxuO3tLNWEmwDRPEpDDiZJaRz06clP4XX112ynMT5uF0QNoMPajBBHnaStUEPJXA==
   dependencies:
     "@npmcli/git" "^4.0.0"
     "@npmcli/installed-package-contents" "^2.0.1"
@@ -1629,7 +1629,7 @@ pacote@15.1.2:
     "@npmcli/run-script" "^6.0.0"
     cacache "^17.0.0"
     fs-minipass "^3.0.0"
-    minipass "^4.0.0"
+    minipass "^5.0.0"
     npm-package-arg "^10.0.0"
     npm-packlist "^7.0.0"
     npm-pick-manifest "^8.0.0"
