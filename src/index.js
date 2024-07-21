@@ -3,12 +3,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import lockfile from "@yarnpkg/lockfile";
 import cliProgress from "cli-progress";
-
-import open from "open";
-import npmFetch from "npm-registry-fetch";
 import pickManifest from "npm-pick-manifest";
+import npmFetch from "npm-registry-fetch";
+import open from "open";
 import tmp from "tmp";
-
 import TreeMaker from "./TreeMaker.js";
 import { latestVersionCache, sizeCache } from "./cache.js";
 
