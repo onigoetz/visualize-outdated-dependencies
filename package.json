@@ -27,7 +27,7 @@
 		"open": "10.1.0",
 		"pacote": "18.0.6",
 		"pretty-bytes": "6.1.1",
-		"temp": "0.9.4"
+		"tmp": "0.2.3"
 	},
 	"bin": {
 		"outdated-dependencies": "src/bin.js"

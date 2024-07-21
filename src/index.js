@@ -6,7 +6,7 @@ import cliProgress from "cli-progress";
 
 import open from "open";
 import pacote from "pacote";
-import temp from "temp";
+import tmp from "tmp";
 
 import TreeMaker from "./TreeMaker.js";
 import { latestVersionCache, sizeCache } from "./cache.js";
@@ -131,12 +131,12 @@ export async function run(currentDir, { verbose, shouldOpen = true }) {
 	const resolved = tree.getTree(rootPackage);
 
 	// Write report
-	const tempName = temp.path({ suffix: ".html" });
+	const tempName = tmp.fileSync({ postfix: ".html"});
 	const template = await fs.readFile(path.join(__dirname, "template.html"), {
 		encoding: "utf-8",
 	});
 	await fs.writeFile(
-		tempName,
+		tempName.name,
 		// By doubly stringifying the parser can deserialize this faster
 		template.replace(
 			"DATA",
@@ -144,13 +144,13 @@ export async function run(currentDir, { verbose, shouldOpen = true }) {
 		),
 	);
 
-	console.log("Written report to", tempName);
+	console.log("Written report to", tempName.name);
 
 	let displayMessage = false;
 
 	// Open in browser
 	if (shouldOpen) {
-		open(tempName, { wait: false }).catch((error) => {
+		open(tempName.name, { wait: false }).catch((error) => {
 			console.error(`Unable to open web browser: ${error}`);
 			displayMessage = true;
 		});
@@ -160,6 +160,6 @@ export async function run(currentDir, { verbose, shouldOpen = true }) {
 
 	if (displayMessage) {
 		console.error("View HTML for the visualization at:");
-		console.error(tempName);
+		console.error(tempName.name);
 	}
 }
