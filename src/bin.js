@@ -1,30 +1,32 @@
 #!/usr/bin/env node
 
-const arg = require("arg");
+import { fileURLToPath } from "node:url";
+import arg from "arg";
 
-const { latestVersionCache, sizeCache } = require("./cache.js");
-const { run } = require("./index.js");
+import { latestVersionCache, sizeCache } from "./cache.js";
+import { run } from "./index.js";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const args = arg({
-  // Types
-  "--help": Boolean,
-  "--version": Boolean,
-  "--clear-cache": Boolean,
-  "--verbose": Boolean,
+	// Types
+	"--help": Boolean,
+	"--version": Boolean,
+	"--clear-cache": Boolean,
+	"--verbose": Boolean,
 
-  // Aliases
-  "-v": "--verbose",
+	// Aliases
+	"-v": "--verbose",
 });
 
-(async function() {
-  if (args["--version"]) {
-    const packageJson = require(path.join(__dirname, "..", "package.json"));
-    console.log(`${packageJson.name} Version ${packageJson.version}`);
-    return;
-  }
+if (args["--version"]) {
+	const packageJson = require(path.join(__dirname, "..", "package.json"));
+	console.log(`${packageJson.name} Version ${packageJson.version}`);
+	process.exit(0);
+}
 
-  if (args["--help"]) {
-    console.log(`
+if (args["--help"]) {
+	console.log(`
   Run this command within a node package to get the up-to-date ness of its dependencies, for the current package and all its children.
   In case of yarn workspaces, all packages are included.
 
@@ -37,18 +39,17 @@ const args = arg({
     --version     Show the version and exit
     --verbose, -v Also display debug information
           `);
-    return;
-  }
+	process.exit(0);
+}
 
-  if (args["--clear-cache"]) {
-    console.log("Clearing cache");
-    latestVersionCache.clear();
-    sizeCache.clear();
-  }
+if (args["--clear-cache"]) {
+	console.log("Clearing cache");
+	latestVersionCache.clear();
+	sizeCache.clear();
+}
 
-  const verbose = args["--verbose"];
+const verbose = args["--verbose"];
 
-  const currentDir = process.cwd();
+const currentDir = process.cwd();
 
-  await run(currentDir, { verbose });
-})();
+await run(currentDir, { verbose });
