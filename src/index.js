@@ -5,7 +5,8 @@ import lockfile from "@yarnpkg/lockfile";
 import cliProgress from "cli-progress";
 
 import open from "open";
-import pacote from "pacote";
+import npmFetch from "npm-registry-fetch";
+import pickManifest from "npm-pick-manifest";
 import tmp from "tmp";
 
 import TreeMaker from "./TreeMaker.js";
@@ -13,12 +14,17 @@ import { latestVersionCache, sizeCache } from "./cache.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
+async function getManifest(pkg, version) {
+	const packument = await npmFetch.json(`/${pkg}`);
+	return pickManifest(packument, version);
+}
+
 export async function getLatestVersion(pack) {
 	const key = `latestVersion:${pack}`;
 	let latestVersion = latestVersionCache.get(key);
 	if (!latestVersion) {
 		try {
-			const manifest = await pacote.manifest(`${pack}@latest`);
+			const manifest = await getManifest(pack, "latest");
 			latestVersion = manifest.version;
 
 			latestVersionCache.set(key, latestVersion);
@@ -36,7 +42,7 @@ export async function getPackageSize(pkg, version) {
 	let size = sizeCache.get(key);
 	if (!size) {
 		try {
-			const manifest = await pacote.manifest(`${pkg}@${version}`);
+			const manifest = await getManifest(pkg, version);
 			size = manifest.dist.unpackedSize;
 
 			sizeCache.set(key, size);
@@ -131,7 +137,7 @@ export async function run(currentDir, { verbose, shouldOpen = true }) {
 	const resolved = tree.getTree(rootPackage);
 
 	// Write report
-	const tempName = tmp.fileSync({ postfix: ".html"});
+	const tempName = tmp.fileSync({ postfix: ".html" });
 	const template = await fs.readFile(path.join(__dirname, "template.html"), {
 		encoding: "utf-8",
 	});
