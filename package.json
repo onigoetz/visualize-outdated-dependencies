@@ -7,8 +7,17 @@
 		"access": "public"
 	},
 	"type": "module",
-	"files": ["index.js", "Node.js", "TreeMaker.js", "template.html"],
-	"keywords": ["npm", "yarn", "dependencies"],
+	"files": [
+		"index.js",
+		"Node.js",
+		"TreeMaker.js",
+		"template.html"
+	],
+	"keywords": [
+		"npm",
+		"yarn",
+		"dependencies"
+	],
 	"dependencies": {
 		"@yarnpkg/lockfile": "1.1.0",
 		"arg": "5.0.2",
@@ -21,9 +30,7 @@
 		"pretty-bytes": "6.1.1",
 		"tmp": "0.2.3"
 	},
-	"bin": {
-		"outdated-dependencies": "src/bin.js"
-	},
+	"bin": "src/bin.js",
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3"
 	},
