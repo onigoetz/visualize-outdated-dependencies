@@ -38,5 +38,6 @@
 		"format": "biome format .",
 		"check": "biome check .",
 		"test": "true"
-	}
+	},
+	"packageManager": "yarn@4.4.0"
 }
