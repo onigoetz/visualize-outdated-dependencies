@@ -32,12 +32,12 @@
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
-		"@biomejs/biome": "1.8.3"
+		"@biomejs/biome": "1.9.1"
 	},
 	"scripts": {
 		"format": "biome format .",
 		"check": "biome check .",
 		"test": "true"
 	},
-	"packageManager": "yarn@4.4.1"
+	"packageManager": "yarn@4.5.0"
 }
