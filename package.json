@@ -27,7 +27,7 @@
 		"npm-pick-manifest": "10.0.0",
 		"npm-registry-fetch": "18.0.2",
 		"open": "10.1.2",
-		"pretty-bytes": "6.1.1",
+		"pretty-bytes": "7.0.0",
 		"tmp": "0.2.3"
 	},
 	"bin": "src/bin.js",
