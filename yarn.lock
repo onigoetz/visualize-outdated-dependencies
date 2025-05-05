@@ -160,7 +160,7 @@ __metadata:
     node-file-cache: "npm:1.0.2"
     npm-pick-manifest: "npm:10.0.0"
     npm-registry-fetch: "npm:18.0.2"
-    open: "npm:10.1.1"
+    open: "npm:10.1.2"
     pretty-bytes: "npm:6.1.1"
     tmp: "npm:0.2.3"
   bin:
@@ -902,15 +902,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:10.1.1":
-  version: 10.1.1
-  resolution: "open@npm:10.1.1"
+"open@npm:10.1.2":
+  version: 10.1.2
+  resolution: "open@npm:10.1.2"
   dependencies:
     default-browser: "npm:^5.2.1"
     define-lazy-prop: "npm:^3.0.0"
     is-inside-container: "npm:^1.0.0"
     is-wsl: "npm:^3.1.0"
-  checksum: 10c0/27706de0a8015fcfa9454394984f726f47aba10f33b1a16eda8d7d3604a01c39b2372638b068401dffd9826dca689947480062742b116ff76e0970c39a5e25c6
+  checksum: 10c0/1bee796f06e549ce764f693272100323fbc04da8fa3c5b0402d6c2d11b3d76fa0aac0be7535e710015ff035326638e3b9a563f3b0e7ac3266473ed5663caae6d
   languageName: node
   linkType: hard
 
