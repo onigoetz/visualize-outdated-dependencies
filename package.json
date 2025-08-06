@@ -28,7 +28,7 @@
 		"npm-registry-fetch": "18.0.2",
 		"open": "10.2.0",
 		"pretty-bytes": "7.0.0",
-		"tmp": "0.2.3"
+		"tmp": "0.2.4"
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
