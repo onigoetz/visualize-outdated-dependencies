@@ -27,12 +27,12 @@
 		"npm-pick-manifest": "10.0.0",
 		"npm-registry-fetch": "19.0.0",
 		"open": "10.2.0",
-		"pretty-bytes": "7.0.0",
-		"tmp": "0.2.4"
+		"pretty-bytes": "7.0.1",
+		"tmp": "0.2.5"
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
-		"@biomejs/biome": "2.1.2"
+		"@biomejs/biome": "2.2.0"
 	},
 	"scripts": {
 		"format": "biome format .",
