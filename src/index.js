@@ -7,8 +7,8 @@ import pickManifest from "npm-pick-manifest";
 import npmFetch from "npm-registry-fetch";
 import open from "open";
 import tmp from "tmp";
-import TreeMaker from "./TreeMaker.js";
 import { latestVersionCache, sizeCache } from "./cache.js";
+import TreeMaker from "./TreeMaker.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
