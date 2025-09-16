@@ -32,7 +32,7 @@
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
-		"@biomejs/biome": "2.2.3"
+		"@biomejs/biome": "2.2.4"
 	},
 	"scripts": {
 		"format": "biome format .",
