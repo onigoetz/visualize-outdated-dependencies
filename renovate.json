@@ -1,7 +1,4 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>onigoetz/renovate-preset:recommended",
-    ":automergeMinor"
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>onigoetz/renovate-preset:recommended", ":automergeMinor"]
 }
