@@ -27,7 +27,7 @@
 		"npm-pick-manifest": "10.0.0",
 		"npm-registry-fetch": "19.0.0",
 		"open": "10.2.0",
-		"pretty-bytes": "7.0.1",
+		"pretty-bytes": "7.1.0",
 		"tmp": "0.2.5"
 	},
 	"bin": "src/bin.js",
@@ -39,5 +39,5 @@
 		"check": "biome check .",
 		"test": "true"
 	},
-	"packageManager": "yarn@4.10.0"
+	"packageManager": "yarn@4.10.3"
 }
