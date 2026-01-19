@@ -180,7 +180,7 @@
         currentVersion.innerText = reportData.version;
         p.appendChild(currentVersion);
 
-        if (reportData.version != reportData.latest) {
+        if (reportData.version !== reportData.latest) {
           p.appendChild(document.createTextNode(" Latest version "));
           const latestVersion = document.createElement("strong");
           latestVersion.innerText = reportData.latest;
@@ -206,7 +206,7 @@
 
       function findOutdated(node) {
         node.children.forEach((child) => {
-          if (!usedBy.hasOwnProperty(child.name)) {
+          if (!Object.hasOwn(usedBy, child.name)) {
             usedBy[child.name] = new Set();
           }
 
@@ -215,7 +215,7 @@
 
         // Check current node
         if (node.color > 0) {
-          if (!report.hasOwnProperty(node.name)) {
+          if (!Object.hasOwn(report, node.name)) {
             report[node.name] = {
               name: node.name,
               version: node.version,
@@ -237,7 +237,7 @@
 
         // Check for all children
         if (node.children) {
-          node.children.forEach((child) => findOutdated(child));
+          node.children.forEach(findOutdated);
         }
       }
 
@@ -252,7 +252,7 @@
         reportCard.className = "Card";
         reportCard.id = toId(pack);
 
-        const [packageName, packageVersion] = getNameAndVersion(pack);
+        const [packageName] = getNameAndVersion(pack);
 
         const title = document.createElement("h2");
         title.className = "Card__title";
@@ -276,8 +276,6 @@
           addRow(table, ["Package", "Current", "Latest"], "th");
 
           Object.keys(reportData.outdated).forEach((outdatedKey) => {
-            const row = document.createElement("tr");
-
             const outdated = reportData.outdated[outdatedKey];
             const [name, version] = getNameAndVersion(outdated.name);
 
@@ -287,7 +285,7 @@
           reportCard.appendChild(table);
         }
 
-        if (usedBy.hasOwnProperty(pack)) {
+        if (Object.hasOwn(usedBy, pack)) {
             const table = document.createElement("table");
           table.className = "Table";
 
@@ -298,7 +296,6 @@
           addRow(table, ["Package", "Version"], "th");
 
           usedBy[pack].forEach((usedByPackage) => {
-            const row = document.createElement("tr");
             const [name, version] = getNameAndVersion(usedByPackage);
 
             addRow(table, [name, version]);

@@ -25,19 +25,19 @@
 		"glob": "11.1.0",
 		"node-file-cache": "1.0.2",
 		"npm-pick-manifest": "10.0.0",
-		"npm-registry-fetch": "19.0.0",
+		"npm-registry-fetch": "19.1.1",
 		"open": "10.2.0",
 		"pretty-bytes": "7.1.0",
 		"tmp": "0.2.5"
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
-		"@biomejs/biome": "2.2.7"
+		"@biomejs/biome": "2.3.11"
 	},
 	"scripts": {
 		"format": "biome format .",
 		"check": "biome check .",
 		"test": "true"
 	},
-	"packageManager": "yarn@4.10.3"
+	"packageManager": "yarn@4.12.0"
 }
