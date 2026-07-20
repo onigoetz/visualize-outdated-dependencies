@@ -1,15 +1,22 @@
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { glob } from "glob";
 
 import Node from "./Node.js";
 
 export default class TreeMaker {
-	constructor(lockfileDependencies, latestVersion, sizes, verbose) {
+	constructor(
+		lockfileDependencies,
+		latestVersion,
+		sizes,
+		{ verbose = false, currentDir = process.cwd() } = {},
+	) {
 		this.latestVersions = latestVersion;
 		this.sizes = sizes;
 		this.lockfileDependencies = lockfileDependencies;
 		this.workspacePackages = [];
 		this.verbose = verbose;
+		this.currentDir = currentDir;
 	}
 
 	getLatestVersion(currentPackage) {
@@ -131,14 +138,19 @@ export default class TreeMaker {
 	getWorkspaces(workspaces) {
 		const list = Array.isArray(workspaces) ? workspaces : workspaces.packages;
 
-		const currentDir = process.cwd();
-
 		const packages = list
-			.map((pattern) => glob.sync(pattern))
+			.map((pattern) => glob.sync(pattern, { cwd: this.currentDir }))
 			.reduce((previous, current) => {
 				return previous.concat(current);
 			}, [])
-			.map((folder) => require(path.join(currentDir, folder, "package.json")));
+			.map((folder) =>
+				JSON.parse(
+					readFileSync(
+						path.join(this.currentDir, folder, "package.json"),
+						"utf8",
+					),
+				),
+			);
 
 		this.workspacePackages = packages.map(
 			(currentPackage) => currentPackage.name,

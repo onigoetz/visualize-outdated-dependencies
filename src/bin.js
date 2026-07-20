@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-import { fileURLToPath } from "node:url";
+import fs from "node:fs/promises";
 import arg from "arg";
 
-import { latestVersionCache, sizeCache } from "./cache.js";
+import { clearCaches } from "./cache.js";
 import { run } from "./index.js";
-
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const args = arg({
 	// Types
@@ -20,7 +18,9 @@ const args = arg({
 });
 
 if (args["--version"]) {
-	const packageJson = require(path.join(__dirname, "..", "package.json"));
+	const packageJson = JSON.parse(
+		await fs.readFile(new URL("../package.json", import.meta.url), "utf8"),
+	);
 	console.log(`${packageJson.name} Version ${packageJson.version}`);
 	process.exit(0);
 }
@@ -44,8 +44,7 @@ if (args["--help"]) {
 
 if (args["--clear-cache"]) {
 	console.log("Clearing cache");
-	latestVersionCache.clear();
-	sizeCache.clear();
+	await clearCaches();
 }
 
 const verbose = args["--verbose"];

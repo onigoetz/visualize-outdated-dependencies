@@ -96,6 +96,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cacheable/utils@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@cacheable/utils@npm:2.5.0"
+  dependencies:
+    hashery: "npm:^1.5.1"
+    keyv: "npm:^5.6.0"
+  checksum: 10c0/99e901accd71eeb0bce91484d6c66d7ef2c731b541561eb5dc9ea7fed78bdc0b65e5dd2a80edde50191143bcfc5f238fc4742475b32e82d43b43eea224038e35
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^9.0.0":
   version: 9.0.0
   resolution: "@isaacs/cliui@npm:9.0.0"
@@ -109,6 +119,13 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.4"
   checksum: 10c0/c25b6dc1598790d5b55c0947a9b7d111cfa92594db5296c3b907e2f533c033666f692a3939eadac17b1c7c40d362d0b0635dc874cbfe3e70db7c2b07cc97a5d2
+  languageName: node
+  linkType: hard
+
+"@keyv/serialize@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@keyv/serialize@npm:1.1.1"
+  checksum: 10c0/b0008cae4a54400c3abf587b8cc2474c6f528ee58969ce6cf9cb07a04006f80c73c85971d6be6544408318a2bc40108236a19a82aea0a6de95aae49533317374
   languageName: node
   linkType: hard
 
@@ -148,9 +165,10 @@ __metadata:
     "@biomejs/biome": "npm:2.5.4"
     "@yarnpkg/lockfile": "npm:1.1.0"
     arg: "npm:5.0.2"
+    cache-manager: "npm:7.2.9"
+    cache-manager-fs-hash: "npm:3.0.0"
     cli-progress: "npm:3.12.0"
     glob: "npm:11.1.0"
-    node-file-cache: "npm:1.0.2"
     npm-pick-manifest: "npm:10.0.0"
     npm-registry-fetch: "npm:19.1.1"
     open: "npm:10.2.0"
@@ -235,6 +253,25 @@ __metadata:
     tar: "npm:^7.4.3"
     unique-filename: "npm:^4.0.0"
   checksum: 10c0/0f42eccf529a23d8e139a79ecea37c290aab90d135b0385e245305b106f31fab529b288a188135f1d0f2436c5fdbd27b8c56043ac872a272326925fbcb3e779c
+  languageName: node
+  linkType: hard
+
+"cache-manager-fs-hash@npm:3.0.0":
+  version: 3.0.0
+  resolution: "cache-manager-fs-hash@npm:3.0.0"
+  dependencies:
+    lockfile: "npm:^1.0.4"
+  checksum: 10c0/68d2264f1706888de25369e0d568da2c397361338751ce7d418e1667454a2bbd5643f764d862b755453e1a40571add02da2a04d7c6ad6e9efa01d15351a6b0fa
+  languageName: node
+  linkType: hard
+
+"cache-manager@npm:7.2.9":
+  version: 7.2.9
+  resolution: "cache-manager@npm:7.2.9"
+  dependencies:
+    "@cacheable/utils": "npm:^2.5.0"
+    keyv: "npm:^5.6.0"
+  checksum: 10c0/b4146edb102c7f49f9eb804c48ffb370405594e36f3e391093c35f5589b25fcd51cb33291589e453882745b60d669f7be21411c86864746d74ef9287ef238af8
   languageName: node
   linkType: hard
 
@@ -359,10 +396,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.3":
-  version: 4.2.8
-  resolution: "graceful-fs@npm:4.2.8"
-  checksum: 10c0/68365485460f7d2e95c05c1b7aeee935349f3b7776488d5bd95a45d8a45bd4977442e88cbbdb4ea01bc72f49f01f75d83f049069774ac8cc4328af4bcff1c542
+"hashery@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "hashery@npm:1.5.1"
+  dependencies:
+    hookified: "npm:^1.15.0"
+  checksum: 10c0/ab4225b655a7b0d05df99b1a59d5b3a51fe433f82422ca25e6f3f4c4ddd30adb49ebd38e0047ef9bded93319c1e9fc857e16aa382e554929c871cb77d39fc463
+  languageName: node
+  linkType: hard
+
+"hookified@npm:^1.15.0":
+  version: 1.15.1
+  resolution: "hookified@npm:1.15.1"
+  checksum: 10c0/6b691374fa97ae57169fb29f90e723499fda5e85494654fbe55c4768b3ccbf3e14c0adc8d0f365f32c503b60d7c06f907781f5966c03d41c423575eb5e16860c
   languageName: node
   linkType: hard
 
@@ -464,13 +510,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-promise@npm:^2.1.0":
-  version: 2.2.2
-  resolution: "is-promise@npm:2.2.2"
-  checksum: 10c0/2dba959812380e45b3df0fb12e7cb4d4528c989c7abb03ececb1d1fd6ab1cbfee956ca9daa587b9db1d8ac3c1e5738cf217bdb3dfd99df8c691be4c00ae09069
-  languageName: node
-  linkType: hard
-
 "is-wsl@npm:^3.1.0":
   version: 3.1.0
   resolution: "is-wsl@npm:3.1.0"
@@ -496,26 +535,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jju@npm:^1.1.0":
-  version: 1.4.0
-  resolution: "jju@npm:1.4.0"
-  checksum: 10c0/f3f444557e4364cfc06b1abf8331bf3778b26c0c8552ca54429bc0092652172fdea26cbffe33e1017b303d5aa506f7ede8571857400efe459cb7439180e2acad
-  languageName: node
-  linkType: hard
-
 "jsbn@npm:1.1.0":
   version: 1.1.0
   resolution: "jsbn@npm:1.1.0"
   checksum: 10c0/4f907fb78d7b712e11dea8c165fe0921f81a657d3443dde75359ed52eb2b5d33ce6773d97985a089f09a65edd80b11cb75c767b57ba47391fee4c969f7215c96
-  languageName: node
-  linkType: hard
-
-"json-parse-helpfulerror@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "json-parse-helpfulerror@npm:1.0.3"
-  dependencies:
-    jju: "npm:^1.1.0"
-  checksum: 10c0/5104d0c41792179370c59e3a82760e952bb8ecd83075f76a1eaab90719292aea0072fed6d3efb1b4a2e9b7e88930c378aa4e6e29ca67d0c9e9826331499eb822
   languageName: node
   linkType: hard
 
@@ -526,23 +549,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4":
-  version: 4.18.1
-  resolution: "lodash@npm:4.18.1"
-  checksum: 10c0/757228fc68805c59789e82185135cf85f05d0b2d3d54631d680ca79ec21944ec8314d4533639a14b8bcfbd97a517e78960933041a5af17ecb693ec6eecb99a27
+"keyv@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "keyv@npm:5.6.0"
+  dependencies:
+    "@keyv/serialize": "npm:^1.1.1"
+  checksum: 10c0/c3ea795b6e03593ca57c8f70928a69bad14c13389a7fb75649a115ff55615244b04d8902798d841c17f0bb4a8a8866c97133b543b93f151b440170bba09176db
   languageName: node
   linkType: hard
 
-"lowdb@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "lowdb@npm:0.14.0"
+"lockfile@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "lockfile@npm:1.0.4"
   dependencies:
-    graceful-fs: "npm:^4.1.3"
-    is-promise: "npm:^2.1.0"
-    json-parse-helpfulerror: "npm:^1.0.3"
-    lodash: "npm:4"
-    steno: "npm:^0.4.1"
-  checksum: 10c0/3433ce1650adf5d686fd3c5168b17ccf86d140b24e2d616e6d1d64900d5a7af57bfa72f3998d75b765c1f80bfc7cbff8f7ae56481e1714797e605ab304fbd4c2
+    signal-exit: "npm:^3.0.2"
+  checksum: 10c0/80b7777ceb43105d9e588733c3efc2514653a5e3a0dae3e61347a1f5381da34dcaa2caaa60c39ed5d4ad31c1735a4831e5639a0ba1c508bfea8dbc9c89777b37
   languageName: node
   linkType: hard
 
@@ -706,15 +727,6 @@ __metadata:
   version: 1.0.0
   resolution: "negotiator@npm:1.0.0"
   checksum: 10c0/4c559dd52669ea48e1914f9d634227c561221dd54734070791f999c52ed0ff36e437b2e07d5c1f6e32909fc625fe46491c16e4a8f0572567d4dd15c3a4fda04b
-  languageName: node
-  linkType: hard
-
-"node-file-cache@npm:1.0.2":
-  version: 1.0.2
-  resolution: "node-file-cache@npm:1.0.2"
-  dependencies:
-    lowdb: "npm:^0.14.0"
-  checksum: 10c0/86c4d40602f58aefe9231e286f6adcc9a2370f12965c0255d1ca49d2e4defcf71f84722b73f3dfc0b8fbcfad38cbfc6c3fe405934e3900f93e760fe13cff7012
   languageName: node
   linkType: hard
 
@@ -908,6 +920,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"signal-exit@npm:^3.0.2":
+  version: 3.0.7
+  resolution: "signal-exit@npm:3.0.7"
+  checksum: 10c0/25d272fa73e146048565e08f3309d5b942c1979a6f4a58a8c59d5fa299728e9c2fcd1a759ec870863b1fd38653670240cd420dad2ad9330c71f36608a6a1c912
+  languageName: node
+  linkType: hard
+
 "signal-exit@npm:^4.0.1":
   version: 4.0.1
   resolution: "signal-exit@npm:4.0.1"
@@ -956,15 +975,6 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.3"
   checksum: 10c0/caddd5f544b2006e88fa6b0124d8d7b28208b83c72d7672d5ade44d794525d23b540f3396108c4eb9280dcb7c01f0bef50682f5b4b2c34291f7c5e211fd1417d
-  languageName: node
-  linkType: hard
-
-"steno@npm:^0.4.1":
-  version: 0.4.4
-  resolution: "steno@npm:0.4.4"
-  dependencies:
-    graceful-fs: "npm:^4.1.3"
-  checksum: 10c0/026d42455aad66f0ab1ac8468dc75484a1df4ad7d8d62763a132afe009d087bb0730e57f628127c2f09dbfdc15e542d7fe9c7ca93e98202739621f8d251a8853
   languageName: node
   linkType: hard
 

@@ -1,62 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import lockfile from "@yarnpkg/lockfile";
 import cliProgress from "cli-progress";
-import pickManifest from "npm-pick-manifest";
-import npmFetch from "npm-registry-fetch";
 import open from "open";
 import tmp from "tmp";
-import { latestVersionCache, sizeCache } from "./cache.js";
+import { createRegistry } from "./registry.js";
+import { renderReport } from "./report.js";
 import TreeMaker from "./TreeMaker.js";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const TEMPLATE = new URL("./template.html", import.meta.url);
 
-async function getManifest(pkg, version) {
-	const packument = await npmFetch.json(`/${pkg}`);
-	return pickManifest(packument, version);
-}
-
-export async function getLatestVersion(pack) {
-	const key = `latestVersion:${pack}`;
-	let latestVersion = latestVersionCache.get(key);
-	if (!latestVersion) {
-		try {
-			const manifest = await getManifest(pack, "latest");
-			latestVersion = manifest.version;
-
-			latestVersionCache.set(key, latestVersion);
-		} catch (error) {
-			console.error(`Could not retrieve manifest for ${pack}.`, error);
-			latestVersion = null;
-		}
-	}
-
-	return latestVersion;
-}
-
-export async function getPackageSize(pkg, version) {
-	const key = `size:${pkg}:${version}`;
-	let size = sizeCache.get(key);
-	if (!size) {
-		try {
-			const manifest = await getManifest(pkg, version);
-			size = manifest.dist.unpackedSize;
-
-			sizeCache.set(key, size);
-		} catch (error) {
-			console.error(
-				`Could not retrieve manifest for ${pkg}@${version}.`,
-				error,
-			);
-			size = 0;
-		}
-	}
-
-	return size;
-}
-
-export async function getData(lockfileDependencies) {
+export async function getData(
+	lockfileDependencies,
+	{ registry = createRegistry(), onProgress = () => {} } = {},
+) {
 	const latestVersions = {};
 	const sizes = {};
 	for (const key of Object.keys(lockfileDependencies)) {
@@ -65,105 +22,99 @@ export async function getData(lockfileDependencies) {
 		sizes[`${pack}@${lockfileDependencies[key].version}`] = null;
 	}
 
-	const progressBar = new cliProgress.Bar(
-		{},
-		cliProgress.Presets.shades_classic,
-	);
 	const latestVersionPackageList = Object.keys(latestVersions);
 	const sizePackageList = Object.keys(sizes);
 
+	const total = latestVersionPackageList.length + sizePackageList.length;
 	let done = 0;
-	progressBar.start(
-		latestVersionPackageList.length + sizePackageList.length,
-		done,
-	);
+	onProgress(done, total);
 
-	const promises = []
-		.concat(
-			latestVersionPackageList.map(async (pack) => {
-				const latestVersion = await getLatestVersion(pack);
-				latestVersions[pack] = latestVersion;
+	const tick = () => {
+		done++;
+		onProgress(done, total);
+	};
 
-				done++;
-				progressBar.update(done);
+	await Promise.all([
+		...latestVersionPackageList.map(async (pack) => {
+			latestVersions[pack] = await registry.getLatestVersion(pack);
+			tick();
+		}),
+		...sizePackageList.map(async (key) => {
+			const pkg = key.substring(0, key.lastIndexOf("@"));
+			const version = key.substring(key.lastIndexOf("@") + 1);
 
-				return true;
-			}),
-		)
-		.concat(
-			sizePackageList.map(async (key) => {
-				const pkg = key.substring(0, key.lastIndexOf("@"));
-				const version = key.substring(key.lastIndexOf("@") + 1);
-
-				const size = await getPackageSize(pkg, version);
-				sizes[key] = size;
-
-				done++;
-				progressBar.update(done);
-
-				return true;
-			}),
-		);
-
-	await Promise.all(promises);
-
-	progressBar.stop();
+			sizes[key] = await registry.getPackageSize(pkg, version);
+			tick();
+		}),
+	]);
 
 	return { latestVersions, sizes };
 }
 
+/** Drives getData's progress callback from a terminal progress bar. */
+function progressBarReporter() {
+	const bar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
+	let started = false;
+
+	return {
+		onProgress(done, total) {
+			if (started) {
+				bar.update(done);
+				return;
+			}
+
+			bar.start(total, done);
+			started = true;
+		},
+		stop: () => bar.stop(),
+	};
+}
+
 export async function run(currentDir, { verbose, shouldOpen = true }) {
-	// Read lockfile
-	const file = await fs.readFile(path.join(currentDir, "yarn.lock"), "utf8");
-	const lockfileDependencies = lockfile.parse(file).object;
+	const lockfileDependencies = lockfile.parse(
+		await fs.readFile(path.join(currentDir, "yarn.lock"), "utf8"),
+	).object;
 
 	console.log("Getting latest Versions...");
-	const { latestVersions, sizes } = await getData(lockfileDependencies);
+	const reporter = progressBarReporter();
+	let latestVersions;
+	let sizes;
+	try {
+		({ latestVersions, sizes } = await getData(lockfileDependencies, {
+			onProgress: reporter.onProgress,
+		}));
+	} finally {
+		reporter.stop();
+	}
 
-	// Read packages list
 	const rootPackage = JSON.parse(
-		await fs.readFile(path.join(currentDir, "package.json")),
+		await fs.readFile(path.join(currentDir, "package.json"), "utf8"),
 	);
 
-	// Create tree
-	const tree = new TreeMaker(
-		lockfileDependencies,
-		latestVersions,
-		sizes,
+	const tree = new TreeMaker(lockfileDependencies, latestVersions, sizes, {
 		verbose,
-	);
-	const resolved = tree.getTree(rootPackage);
+		currentDir,
+	}).getTree(rootPackage);
 
-	// Write report
-	const tempName = tmp.fileSync({ postfix: ".html" });
-	const template = await fs.readFile(path.join(__dirname, "template.html"), {
-		encoding: "utf-8",
-	});
-	await fs.writeFile(
-		tempName.name,
-		// By doubly stringifying the parser can deserialize this faster
-		template.replace(
-			"DATA",
-			JSON.stringify(JSON.stringify(resolved.toArray())),
-		),
+	const report = renderReport(
+		tree.toArray(),
+		await fs.readFile(TEMPLATE, "utf8"),
 	);
 
-	console.log("Written report to", tempName.name);
+	const tempFile = tmp.fileSync({ postfix: ".html" });
+	await fs.writeFile(tempFile.name, report);
 
-	let displayMessage = false;
+	console.log("Written report to", tempFile.name);
 
-	// Open in browser
 	if (shouldOpen) {
-		open(tempName.name, { wait: false }).catch((error) => {
+		try {
+			await open(tempFile.name, { wait: false });
+			return;
+		} catch (error) {
 			console.error(`Unable to open web browser: ${error}`);
-			displayMessage = true;
-		});
-	} else {
-		displayMessage = true;
+		}
 	}
 
-	if (displayMessage) {
-		console.error("View HTML for the visualization at:");
-		console.error(tempName.name);
-	}
+	console.error("View HTML for the visualization at:");
+	console.error(tempFile.name);
 }

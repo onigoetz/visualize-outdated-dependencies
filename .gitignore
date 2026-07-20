@@ -1,5 +1,4 @@
 node_modules/
-*_cache.json
 
 .yarn/cache
 .yarn/*.gz
