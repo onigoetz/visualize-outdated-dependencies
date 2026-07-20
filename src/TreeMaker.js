@@ -1,6 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, globSync } from "node:fs";
 import path from "node:path";
-import { glob } from "glob";
 
 import Node from "./Node.js";
 
@@ -141,7 +140,7 @@ export default class TreeMaker {
 		const list = Array.isArray(workspaces) ? workspaces : workspaces.packages;
 
 		const packages = list
-			.map((pattern) => glob.sync(pattern, { cwd: this.currentDir }))
+			.map((pattern) => globSync(pattern, { cwd: this.currentDir }))
 			.reduce((previous, current) => {
 				return previous.concat(current);
 			}, [])
