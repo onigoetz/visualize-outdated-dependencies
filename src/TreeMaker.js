@@ -1,4 +1,4 @@
-import { readFileSync, globSync } from "node:fs";
+import { globSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import Node from "./Node.js";
