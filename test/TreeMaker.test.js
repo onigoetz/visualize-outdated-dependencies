@@ -1,8 +1,7 @@
-import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
+import { describe, expect, it } from "vitest";
 
 import { parseLockfile } from "../src/lockfile.js";
 import TreeMaker from "../src/TreeMaker.js";
@@ -63,8 +62,8 @@ for (const { label, prefix } of FORMATS) {
 				dependencies: { a: "^1.0.0" },
 			});
 
-			assert.equal(tree.name, "root");
-			assert.deepEqual(shape(tree), {
+			expect(tree.name).toBe("root");
+			expect(shape(tree)).toEqual({
 				"a@1.0.0": {
 					"b@2.0.0": {},
 					// c depends on b@2.0.0 too, but it is already a sibling
@@ -81,7 +80,7 @@ for (const { label, prefix } of FORMATS) {
 				devDependencies: { d: "^3.0.0" },
 			});
 
-			assert.deepEqual(Object.keys(shape(tree)), ["a@1.0.0", "d@3.0.0"]);
+			expect(Object.keys(shape(tree))).toEqual(["a@1.0.0", "d@3.0.0"]);
 		});
 
 		it("carries latest versions and sizes onto the nodes", () => {
@@ -92,9 +91,9 @@ for (const { label, prefix } of FORMATS) {
 			});
 
 			const a = tree.children[0];
-			assert.equal(a.version, "1.0.0");
-			assert.equal(a.latestVersion, "1.0.0");
-			assert.equal(a.size, 10);
+			expect(a.version).toBe("1.0.0");
+			expect(a.latestVersion).toBe("1.0.0");
+			expect(a.size).toBe(10);
 		});
 
 		it("cuts a circular dependency instead of recursing forever", () => {
@@ -104,7 +103,7 @@ for (const { label, prefix } of FORMATS) {
 				dependencies: { a: "^1.0.0" },
 			});
 
-			assert.deepEqual(shape(tree), {
+			expect(shape(tree)).toEqual({
 				"a@1.0.0": {
 					// b depends back on a@1.0.0, which is its own ancestor
 					"b@2.0.0": {},
@@ -129,14 +128,14 @@ for (const { label, prefix } of FORMATS) {
 			const tree = workspaceTree();
 			const children = Object.keys(shape(tree)).sort();
 
-			assert.deepEqual(children, ["a@1.0.0", "pkg-one@1.0.0", "pkg-two@1.0.0"]);
+			expect(children).toEqual(["a@1.0.0", "pkg-one@1.0.0", "pkg-two@1.0.0"]);
 		});
 
 		it("resolves each workspace package's own dependencies", () => {
 			const tree = workspaceTree();
 			const pkgOne = tree.children.find((node) => node.name === "pkg-one");
 
-			assert.deepEqual(shape(pkgOne), { "b@2.0.0": {} });
+			expect(shape(pkgOne)).toEqual({ "b@2.0.0": {} });
 		});
 
 		it("excludes workspace siblings, which are absent from the lockfile", () => {
@@ -144,14 +143,14 @@ for (const { label, prefix } of FORMATS) {
 			const pkgTwo = tree.children.find((node) => node.name === "pkg-two");
 
 			// pkg-two depends on d and on pkg-one; only d is a real lockfile entry
-			assert.deepEqual(shape(pkgTwo), { "d@3.0.0": {} });
+			expect(shape(pkgTwo)).toEqual({ "d@3.0.0": {} });
 		});
 
 		it("resolves workspaces relative to currentDir, not process.cwd()", () => {
 			// The test runner's cwd is the repo root, which has no packages/* folders,
 			// so this only passes if currentDir is threaded through.
-			assert.notEqual(process.cwd(), currentDir);
-			assert.equal(Object.keys(shape(workspaceTree())).length, 3);
+			expect(process.cwd()).not.toBe(currentDir);
+			expect(Object.keys(shape(workspaceTree()))).toHaveLength(3);
 		});
 	});
 
@@ -159,15 +158,15 @@ for (const { label, prefix } of FORMATS) {
 		const maker = makeMaker(`${prefix}simple`);
 
 		it("resolves a range present in the lockfile", () => {
-			assert.equal(maker.getCurrentVersion("a", "^1.0.0"), "1.0.0");
+			expect(maker.getCurrentVersion("a", "^1.0.0")).toBe("1.0.0");
 		});
 
 		it("returns the requested version verbatim when the lockfile has no entry", () => {
-			assert.equal(maker.getCurrentVersion("unknown", "1.2.3"), "1.2.3");
+			expect(maker.getCurrentVersion("unknown", "1.2.3")).toBe("1.2.3");
 		});
 
 		it("returns no dependencies when the lockfile has no entry", () => {
-			assert.deepEqual(maker.getDependencies("unknown", "1.2.3"), {});
+			expect(maker.getDependencies("unknown", "1.2.3")).toEqual({});
 		});
 	});
 }
@@ -176,12 +175,12 @@ describe("getLatestVersion / getSize", () => {
 	const maker = makeMaker("simple");
 
 	it("looks up known packages", () => {
-		assert.equal(maker.getLatestVersion("a"), "1.0.0");
-		assert.equal(maker.getSize("a", "1.0.0"), 10);
+		expect(maker.getLatestVersion("a")).toBe("1.0.0");
+		expect(maker.getSize("a", "1.0.0")).toBe(10);
 	});
 
 	it("returns null for unknown packages", () => {
-		assert.equal(maker.getLatestVersion("nope"), null);
-		assert.equal(maker.getSize("nope", "1.0.0"), null);
+		expect(maker.getLatestVersion("nope")).toBeNull();
+		expect(maker.getSize("nope", "1.0.0")).toBeNull();
 	});
 });

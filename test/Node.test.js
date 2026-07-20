@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, expect, it } from "vitest";
 
 import Node from "../src/Node.js";
 
@@ -20,8 +19,8 @@ describe("getParents", () => {
 		const a = makeNode(root, "a", "1.0.0");
 		const b = makeNode(a, "b", "2.0.0");
 
-		assert.deepEqual(b.getParents(), ["root@1.0.0", "a@1.0.0", "b@2.0.0"]);
-		assert.deepEqual(root.getParents(), ["root@1.0.0"]);
+		expect(b.getParents()).toEqual(["root@1.0.0", "a@1.0.0", "b@2.0.0"]);
+		expect(root.getParents()).toEqual(["root@1.0.0"]);
 	});
 });
 
@@ -31,20 +30,20 @@ describe("isCircularDependency", () => {
 	const b = makeNode(a, "b", "2.0.0");
 
 	it("matches itself", () => {
-		assert.equal(b.isCircularDependency("b", "2.0.0"), true);
+		expect(b.isCircularDependency("b", "2.0.0")).toBe(true);
 	});
 
 	it("matches an ancestor", () => {
-		assert.equal(b.isCircularDependency("a", "1.0.0"), true);
-		assert.equal(b.isCircularDependency("root", "1.0.0"), true);
+		expect(b.isCircularDependency("a", "1.0.0")).toBe(true);
+		expect(b.isCircularDependency("root", "1.0.0")).toBe(true);
 	});
 
 	it("is version-sensitive", () => {
-		assert.equal(b.isCircularDependency("a", "9.9.9"), false);
+		expect(b.isCircularDependency("a", "9.9.9")).toBe(false);
 	});
 
 	it("does not look downwards", () => {
-		assert.equal(root.isCircularDependency("b", "2.0.0"), false);
+		expect(root.isCircularDependency("b", "2.0.0")).toBe(false);
 	});
 });
 
@@ -54,16 +53,16 @@ describe("isPeerDependency", () => {
 	const b = makeNode(a, "b", "2.0.0");
 
 	it("matches its own children", () => {
-		assert.equal(a.isPeerDependency("b", "2.0.0"), true);
+		expect(a.isPeerDependency("b", "2.0.0")).toBe(true);
 	});
 
 	it("matches a sibling found further up the chain", () => {
 		// b has no children, but its grandparent root has `a` as a child
-		assert.equal(b.isPeerDependency("a", "1.0.0"), true);
+		expect(b.isPeerDependency("a", "1.0.0")).toBe(true);
 	});
 
 	it("does not match nodes deeper than the ancestor chain's children", () => {
-		assert.equal(root.isPeerDependency("b", "2.0.0"), false);
+		expect(root.isPeerDependency("b", "2.0.0")).toBe(false);
 	});
 });
 
@@ -73,15 +72,15 @@ describe("getSize", () => {
 		const a = makeNode(root, "a", "1.0.0", "1.0.0", 100);
 		makeNode(a, "b", "2.0.0", "2.0.0", 50);
 
-		assert.equal(root.getSize(), 150);
-		assert.equal(a.getSize(), 150);
+		expect(root.getSize()).toBe(150);
+		expect(a.getSize()).toBe(150);
 	});
 
 	it("counts a null size as zero", () => {
 		const root = makeNode(null, "root", "1.0.0", "1.0.0", null);
 		makeNode(root, "a", "1.0.0", "1.0.0", 100);
 
-		assert.equal(root.getSize(), 100);
+		expect(root.getSize()).toBe(100);
 	});
 
 	it("does not count a circular dependency twice", () => {
@@ -91,8 +90,8 @@ describe("getSize", () => {
 		// b depends back on a — already counted higher up
 		makeNode(b, "a", "1.0.0", "1.0.0", 100);
 
-		assert.equal(b.getSize(), 50);
-		assert.equal(root.getSize(), 150);
+		expect(b.getSize()).toBe(50);
+		expect(root.getSize()).toBe(150);
 	});
 
 	it("does not count a dependency already hoisted onto a parent", () => {
@@ -103,8 +102,8 @@ describe("getSize", () => {
 		// c also depends on b@2.0.0, which is already a sibling of c
 		makeNode(c, "b", "2.0.0", "2.0.0", 50);
 
-		assert.equal(c.getSize(), 30);
-		assert.equal(root.getSize(), 180);
+		expect(c.getSize()).toBe(30);
+		expect(root.getSize()).toBe(180);
 	});
 });
 
@@ -115,13 +114,13 @@ describe("toArray", () => {
 
 		const result = root.toArray();
 
-		assert.equal(result.name, "root@1.0.0");
-		assert.equal(result.version, "1.0.0");
-		assert.equal(result.latest, "1.0.0");
-		assert.equal(result.size, 1024);
-		assert.equal(result.sizeF, "1.02 kB");
-		assert.equal(result.children.length, 1);
-		assert.equal(result.children[0].name, "a@1.0.0");
+		expect(result.name).toBe("root@1.0.0");
+		expect(result.version).toBe("1.0.0");
+		expect(result.latest).toBe("1.0.0");
+		expect(result.size).toBe(1024);
+		expect(result.sizeF).toBe("1.02 kB");
+		expect(result.children.length).toBe(1);
+		expect(result.children[0].name).toBe("a@1.0.0");
 	});
 
 	it("reports the same size getSize() computes", () => {
@@ -133,8 +132,8 @@ describe("toArray", () => {
 
 		// The peer-dependency cut is applied by getSize() over the *unfiltered*
 		// children, and by toArray() when filtering them — the two must agree.
-		assert.equal(root.toArray().size, root.getSize());
-		assert.equal(a.toArray().size, a.getSize());
+		expect(root.toArray().size).toBe(root.getSize());
+		expect(a.toArray().size).toBe(a.getSize());
 	});
 
 	it("uses the child count as the value, falling back to 1 for leaves", () => {
@@ -143,8 +142,8 @@ describe("toArray", () => {
 		makeNode(root, "b", "1.0.0", "1.0.0", 0);
 
 		const result = root.toArray();
-		assert.equal(result.value, 2);
-		assert.equal(result.children[0].value, 1);
+		expect(result.value).toBe(2);
+		expect(result.children[0].value).toBe(1);
 	});
 
 	it("omits children already hoisted onto a parent", () => {
@@ -159,7 +158,7 @@ describe("toArray", () => {
 			(node) => node.name === "c@1.0.0",
 		);
 
-		assert.deepEqual(serializedC.children, []);
+		expect(serializedC.children).toEqual([]);
 	});
 
 	it("keeps every child of the root, which has no parent to hoist onto", () => {
@@ -167,7 +166,7 @@ describe("toArray", () => {
 		makeNode(root, "a", "1.0.0", "1.0.0", 0);
 		makeNode(root, "b", "1.0.0", "1.0.0", 0);
 
-		assert.equal(root.toArray().children.length, 2);
+		expect(root.toArray().children.length).toBe(2);
 	});
 });
 
@@ -175,14 +174,14 @@ describe("toArray colors", () => {
 	it("is green when up to date", () => {
 		const root = makeNode(null, "root", "1.0.0", "1.0.0", 0);
 
-		assert.equal(root.toArray().color, GREEN);
+		expect(root.toArray().color).toBe(GREEN);
 	});
 
 	it("is red when the current version is not the latest", () => {
 		const root = makeNode(null, "root", "1.0.0", "1.0.0", 0);
 		const a = makeNode(root, "a", "1.0.0", "2.0.0", 0);
 
-		assert.equal(a.toArray().color, RED);
+		expect(a.toArray().color).toBe(RED);
 	});
 
 	it("is orange when a direct child is red", () => {
@@ -190,7 +189,7 @@ describe("toArray colors", () => {
 		const a = makeNode(root, "a", "1.0.0", "1.0.0", 0);
 		makeNode(a, "b", "1.0.0", "2.0.0", 0);
 
-		assert.equal(a.toArray().color, ORANGE);
+		expect(a.toArray().color).toBe(ORANGE);
 	});
 
 	it("does not propagate orange more than one level up", () => {
@@ -199,7 +198,7 @@ describe("toArray colors", () => {
 		makeNode(a, "b", "1.0.0", "2.0.0", 0);
 
 		// root's only child is orange, not red, so root stays green
-		assert.equal(root.toArray().color, GREEN);
+		expect(root.toArray().color).toBe(GREEN);
 	});
 
 	it("prefers red over orange when the node is itself outdated", () => {
@@ -207,7 +206,7 @@ describe("toArray colors", () => {
 		const a = makeNode(root, "a", "1.0.0", "2.0.0", 0);
 		makeNode(a, "b", "1.0.0", "2.0.0", 0);
 
-		assert.equal(a.toArray().color, RED);
+		expect(a.toArray().color).toBe(RED);
 	});
 
 	// Current behaviour, not necessarily desirable: getLatestVersion() returns
@@ -217,6 +216,6 @@ describe("toArray colors", () => {
 		const root = makeNode(null, "root", "1.0.0", "1.0.0", 0);
 		const a = makeNode(root, "a", "1.0.0", null, 0);
 
-		assert.equal(a.toArray().color, RED);
+		expect(a.toArray().color).toBe(RED);
 	});
 });

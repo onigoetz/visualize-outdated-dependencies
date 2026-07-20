@@ -1,8 +1,7 @@
-import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { beforeAll, describe, expect, it } from "vitest";
 
 const execFileAsync = promisify(execFile);
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
@@ -10,7 +9,7 @@ const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 describe("published package contents", () => {
 	let files;
 
-	before(async () => {
+	beforeAll(async () => {
 		const { stdout } = await execFileAsync(
 			"npm",
 			["pack", "--dry-run", "--json"],
@@ -30,20 +29,19 @@ describe("published package contents", () => {
 			"src/report.js",
 			"src/TreeMaker.js",
 		]) {
-			assert.ok(files.includes(file), `${file} is missing from the tarball`);
+			expect(files, `${file} is missing from the tarball`).toContain(file);
 		}
 	});
 
 	it("ships the report template", () => {
-		assert.ok(files.includes("src/template.html"));
+		expect(files).toContain("src/template.html");
 	});
 
 	it("does not ship local caches or test fixtures", () => {
-		assert.deepEqual(
+		expect(
 			files.filter(
 				(file) => file.endsWith("_cache.json") || file.startsWith("test/"),
 			),
-			[],
-		);
+		).toEqual([]);
 	});
 });

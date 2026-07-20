@@ -1,6 +1,5 @@
-import assert from "node:assert/strict";
-import { describe, it, mock } from "node:test";
 import { createCache } from "cache-manager";
+import { describe, expect, it, vi } from "vitest";
 
 import { createRegistry } from "../src/registry.js";
 
@@ -30,32 +29,36 @@ describe("getLatestVersion", () => {
 			packument("a", { "1.0.0": {}, "2.0.0": {} }),
 		);
 
-		assert.equal(await registry.getLatestVersion("a"), "2.0.0");
+		expect(await registry.getLatestVersion("a")).toBe("2.0.0");
 	});
 
 	it("only fetches a package once", async () => {
-		const fetchPackument = mock.fn(async () => packument("a", { "1.0.0": {} }));
+		const fetchPackument = vi.fn(async () => packument("a", { "1.0.0": {} }));
 		const registry = makeRegistry(fetchPackument);
 
 		await registry.getLatestVersion("a");
 		await registry.getLatestVersion("a");
 
-		assert.equal(fetchPackument.mock.callCount(), 1);
+		expect(fetchPackument).toHaveBeenCalledTimes(1);
 	});
 
 	it("returns null when the lookup fails", async () => {
-		const consoleError = mock.method(console, "error", () => {});
+		const consoleError = vi
+			.spyOn(console, "error")
+			.mockImplementation(() => {});
 		const registry = makeRegistry(async () => {
 			throw new Error("ENOTFOUND");
 		});
 
-		assert.equal(await registry.getLatestVersion("nope"), null);
-		assert.equal(consoleError.mock.callCount(), 1);
-		consoleError.mock.restore();
+		expect(await registry.getLatestVersion("nope")).toBeNull();
+		expect(consoleError).toHaveBeenCalledTimes(1);
+		consoleError.mockRestore();
 	});
 
 	it("does not cache a failed lookup", async () => {
-		const consoleError = mock.method(console, "error", () => {});
+		const consoleError = vi
+			.spyOn(console, "error")
+			.mockImplementation(() => {});
 		let attempt = 0;
 		const registry = makeRegistry(async () => {
 			attempt++;
@@ -65,9 +68,9 @@ describe("getLatestVersion", () => {
 			return packument("a", { "1.0.0": {} });
 		});
 
-		assert.equal(await registry.getLatestVersion("a"), null);
-		assert.equal(await registry.getLatestVersion("a"), "1.0.0");
-		consoleError.mock.restore();
+		expect(await registry.getLatestVersion("a")).toBeNull();
+		expect(await registry.getLatestVersion("a")).toBe("1.0.0");
+		consoleError.mockRestore();
 	});
 });
 
@@ -80,11 +83,11 @@ describe("getPackageSize", () => {
 			}),
 		);
 
-		assert.equal(await registry.getPackageSize("a", "1.0.0"), 111);
+		expect(await registry.getPackageSize("a", "1.0.0")).toBe(111);
 	});
 
 	it("caches per package and version", async () => {
-		const fetchPackument = mock.fn(async () =>
+		const fetchPackument = vi.fn(async () =>
 			packument("a", {
 				"1.0.0": { unpackedSize: 111 },
 				"2.0.0": { unpackedSize: 222 },
@@ -94,33 +97,35 @@ describe("getPackageSize", () => {
 
 		await registry.getPackageSize("a", "1.0.0");
 		await registry.getPackageSize("a", "1.0.0");
-		assert.equal(fetchPackument.mock.callCount(), 1);
+		expect(fetchPackument).toHaveBeenCalledTimes(1);
 
 		await registry.getPackageSize("a", "2.0.0");
-		assert.equal(fetchPackument.mock.callCount(), 2);
+		expect(fetchPackument).toHaveBeenCalledTimes(2);
 	});
 
 	it("returns 0 when the lookup fails", async () => {
-		const consoleError = mock.method(console, "error", () => {});
+		const consoleError = vi
+			.spyOn(console, "error")
+			.mockImplementation(() => {});
 		const registry = makeRegistry(async () => {
 			throw new Error("ENOTFOUND");
 		});
 
-		assert.equal(await registry.getPackageSize("nope", "1.0.0"), 0);
-		consoleError.mock.restore();
+		expect(await registry.getPackageSize("nope", "1.0.0")).toBe(0);
+		consoleError.mockRestore();
 	});
 
 	// A miss is undefined rather than falsy, so a package that genuinely
 	// reports 0 bytes is cached like any other.
 	it("caches a package whose size is zero", async () => {
-		const fetchPackument = mock.fn(async () =>
+		const fetchPackument = vi.fn(async () =>
 			packument("a", { "1.0.0": { unpackedSize: 0 } }),
 		);
 		const registry = makeRegistry(fetchPackument);
 
-		assert.equal(await registry.getPackageSize("a", "1.0.0"), 0);
-		assert.equal(await registry.getPackageSize("a", "1.0.0"), 0);
+		expect(await registry.getPackageSize("a", "1.0.0")).toBe(0);
+		expect(await registry.getPackageSize("a", "1.0.0")).toBe(0);
 
-		assert.equal(fetchPackument.mock.callCount(), 1);
+		expect(fetchPackument).toHaveBeenCalledTimes(1);
 	});
 });

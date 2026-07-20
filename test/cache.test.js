@@ -1,16 +1,15 @@
-import assert from "node:assert/strict";
 import { mkdtempSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { after, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { createCache } from "cache-manager";
 import { DiskStore } from "cache-manager-fs-hash";
+import { afterAll, describe, expect, it } from "vitest";
 
 import { cacheDirectory, LATEST_VERSION_TTL, SIZE_TTL } from "../src/cache.js";
 
 const directory = mkdtempSync(path.join(tmpdir(), "outdated-cache-"));
-after(() => rmSync(directory, { recursive: true, force: true }));
+afterAll(() => rmSync(directory, { recursive: true, force: true }));
 
 let counter = 0;
 function makeCache() {
@@ -30,13 +29,13 @@ describe("disk cache", () => {
 		const { cache } = makeCache();
 		await cache.set("latestVersion:a", "4.0.8", LATEST_VERSION_TTL);
 
-		assert.equal(await cache.get("latestVersion:a"), "4.0.8");
+		expect(await cache.get("latestVersion:a")).toBe("4.0.8");
 	});
 
 	it("returns undefined for an unknown key", async () => {
 		const { cache } = makeCache();
 
-		assert.equal(await cache.get("nope"), undefined);
+		expect(await cache.get("nope")).toBeUndefined();
 	});
 
 	it("preserves a zero-byte size as a number", async () => {
@@ -44,8 +43,8 @@ describe("disk cache", () => {
 		await cache.set("size:a:1.0.0", 0, SIZE_TTL);
 
 		// Distinguishable from a miss, which is what lets registry.js cache it
-		assert.equal(await cache.get("size:a:1.0.0"), 0);
-		assert.notEqual(await cache.get("size:a:1.0.0"), undefined);
+		expect(await cache.get("size:a:1.0.0")).toBe(0);
+		expect(await cache.get("size:a:1.0.0")).not.toBeUndefined();
 	});
 
 	it("expires entries once their ttl has elapsed", async () => {
@@ -53,7 +52,7 @@ describe("disk cache", () => {
 		await cache.set("short", "value", 50);
 
 		await new Promise((resolve) => setTimeout(resolve, 120));
-		assert.equal(await cache.get("short"), undefined);
+		expect(await cache.get("short")).toBeUndefined();
 	});
 
 	it("persists across instances sharing a directory", async () => {
@@ -61,7 +60,7 @@ describe("disk cache", () => {
 		await cache.set("latestVersion:a", "4.0.8", LATEST_VERSION_TTL);
 
 		const reopened = createCache(new DiskStore({ path: cachePath }));
-		assert.equal(await reopened.get("latestVersion:a"), "4.0.8");
+		expect(await reopened.get("latestVersion:a")).toBe("4.0.8");
 	});
 
 	it("clears every entry and leaves no files behind", async () => {
@@ -71,44 +70,42 @@ describe("disk cache", () => {
 
 		await cache.clear();
 
-		assert.equal(await cache.get("latestVersion:a"), undefined);
-		assert.deepEqual(readdirSync(cachePath), []);
+		expect(await cache.get("latestVersion:a")).toBeUndefined();
+		expect(readdirSync(cachePath)).toEqual([]);
 	});
 });
 
 describe("cacheDirectory", () => {
 	it("uses Library/Caches on macOS", () => {
-		assert.equal(
+		expect(
 			cacheDirectory({ platform: "darwin", env: {}, homedir: "/Users/me" }),
-			"/Users/me/Library/Caches/outdated-dependencies",
-		);
+		).toBe("/Users/me/Library/Caches/outdated-dependencies");
 	});
 
 	it("honours XDG_CACHE_HOME on Linux", () => {
-		assert.equal(
+		expect(
 			cacheDirectory({
 				platform: "linux",
 				env: { XDG_CACHE_HOME: "/custom/cache" },
 				homedir: "/home/me",
 			}),
-			"/custom/cache/outdated-dependencies",
-		);
+		).toBe("/custom/cache/outdated-dependencies");
 	});
 
 	it("falls back to ~/.cache on Linux", () => {
-		assert.equal(
+		expect(
 			cacheDirectory({ platform: "linux", env: {}, homedir: "/home/me" }),
-			"/home/me/.cache/outdated-dependencies",
-		);
+		).toBe("/home/me/.cache/outdated-dependencies");
 	});
 
 	it("uses LOCALAPPDATA on Windows", () => {
-		assert.equal(
+		expect(
 			cacheDirectory({
 				platform: "win32",
 				env: { LOCALAPPDATA: "C:\\Users\\me\\AppData\\Local" },
 				homedir: "C:\\Users\\me",
 			}),
+		).toBe(
 			path.join(
 				"C:\\Users\\me\\AppData\\Local",
 				"outdated-dependencies",
@@ -121,6 +118,6 @@ describe("cacheDirectory", () => {
 		const resolved = cacheDirectory();
 		const packageRoot = fileURLToPath(new URL("..", import.meta.url));
 
-		assert.ok(!resolved.startsWith(packageRoot));
+		expect(resolved.startsWith(packageRoot)).toBe(false);
 	});
 });

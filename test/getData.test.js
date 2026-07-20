@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, expect, it } from "vitest";
 
 import { getData } from "../src/index.js";
 
@@ -20,7 +19,7 @@ describe("getData", () => {
 			registry,
 		});
 
-		assert.deepEqual(latestVersions, {
+		expect(latestVersions).toEqual({
 			a: "latest-a",
 			b: "latest-b",
 			"@scope/c": "latest-@scope/c",
@@ -31,13 +30,13 @@ describe("getData", () => {
 		const { sizes } = await getData(lockfileDependencies, { registry });
 
 		// "@scope/c@3.0.0" must resolve to pkg "@scope/c" at version "3.0.0"
-		assert.equal(sizes["@scope/c@3.0.0"], "@scope/c:3.0.0".length);
+		expect(sizes["@scope/c@3.0.0"]).toBe("@scope/c:3.0.0".length);
 	});
 
 	it("keys sizes by the locked version rather than the requested range", async () => {
 		const { sizes } = await getData(lockfileDependencies, { registry });
 
-		assert.deepEqual(Object.keys(sizes).sort(), [
+		expect(Object.keys(sizes).sort()).toEqual([
 			"@scope/c@3.0.0",
 			"a@1.0.0",
 			"b@2.0.0",
@@ -52,15 +51,15 @@ describe("getData", () => {
 		});
 
 		// 3 packages + 3 sizes
-		assert.deepEqual(calls.at(0), [0, 6]);
-		assert.deepEqual(calls.at(-1), [6, 6]);
-		assert.equal(calls.length, 7);
+		expect(calls.at(0)).toEqual([0, 6]);
+		expect(calls.at(-1)).toEqual([6, 6]);
+		expect(calls).toHaveLength(7);
 	});
 
 	it("handles an empty lockfile", async () => {
 		const { latestVersions, sizes } = await getData({}, { registry });
 
-		assert.deepEqual(latestVersions, {});
-		assert.deepEqual(sizes, {});
+		expect(latestVersions).toEqual({});
+		expect(sizes).toEqual({});
 	});
 });

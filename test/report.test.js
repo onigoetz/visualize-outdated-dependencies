@@ -1,6 +1,5 @@
-import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { describe, it } from "node:test";
+import { describe, expect, it } from "vitest";
 
 import { renderReport } from "../src/report.js";
 
@@ -19,8 +18,8 @@ describe("renderReport", () => {
 	it("replaces the DATA placeholder", () => {
 		const result = renderReport(tree, "<script>const data = DATA;</script>");
 
-		assert.ok(!result.includes("DATA"));
-		assert.ok(result.startsWith("<script>const data = "));
+		expect(result).not.toContain("DATA");
+		expect(result.startsWith("<script>const data = ")).toBe(true);
 	});
 
 	it("embeds the tree as a double-encoded JSON string", () => {
@@ -28,14 +27,14 @@ describe("renderReport", () => {
 
 		// The template consumes it as a string literal, so one parse yields the
 		// JSON text and a second yields the tree itself.
-		assert.deepEqual(JSON.parse(JSON.parse(result)), tree);
+		expect(JSON.parse(JSON.parse(result))).toEqual(tree);
 	});
 
 	it("survives values that need escaping", () => {
 		const tricky = { name: 'a"b</script>\\', children: [] };
 		const result = renderReport(tricky, "DATA");
 
-		assert.deepEqual(JSON.parse(JSON.parse(result)), tricky);
+		expect(JSON.parse(JSON.parse(result))).toEqual(tricky);
 	});
 
 	it("leaves the rest of the real template intact", () => {
@@ -45,8 +44,8 @@ describe("renderReport", () => {
 		);
 		const result = renderReport(tree, template);
 
-		assert.ok(result.includes("<html"));
-		assert.ok(!result.includes(">DATA<"));
-		assert.equal(result.split("\n").length, template.split("\n").length);
+		expect(result).toContain("<html");
+		expect(result).not.toContain(">DATA<");
+		expect(result.split("\n")).toHaveLength(template.split("\n").length);
 	});
 });

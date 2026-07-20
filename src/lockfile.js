@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import classic from "@yarnpkg/lockfile";
+import { parse as parseClassic } from "@yarnpkg/lockfile";
 import { parse as parseYaml } from "yaml";
 
 /**
@@ -79,7 +79,7 @@ export function parseBerryLockfile(contents) {
 }
 
 export function parseClassicLockfile(contents) {
-	return classic.parse(contents).object;
+	return parseClassic(contents).object;
 }
 
 /** Detects the lockfile format and parses it into the Yarn Classic shape. */
