@@ -38,9 +38,11 @@ export default class TreeMaker {
 	}
 
 	getDependencies(currentPackage, requestedVersion) {
+		// A missing entry means the range didn't resolve, which happens for
+		// protocols we don't rewrite (git URLs, `patch:`, `portal:`, …).
 		return (
 			this.lockfileDependencies[`${currentPackage}@${requestedVersion}`]
-				.dependencies || {}
+				?.dependencies || {}
 		);
 	}
 

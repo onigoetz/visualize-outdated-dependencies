@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import lockfile from "@yarnpkg/lockfile";
 import cliProgress from "cli-progress";
 import open from "open";
 import tmp from "tmp";
+import { readLockfile, splitDescriptor } from "./lockfile.js";
 import { createRegistry } from "./registry.js";
 import { renderReport } from "./report.js";
 import TreeMaker from "./TreeMaker.js";
@@ -17,7 +17,7 @@ export async function getData(
 	const latestVersions = {};
 	const sizes = {};
 	for (const key of Object.keys(lockfileDependencies)) {
-		const pack = key.substring(0, key.lastIndexOf("@"));
+		const { name: pack } = splitDescriptor(key);
 		latestVersions[pack] = null;
 		sizes[`${pack}@${lockfileDependencies[key].version}`] = null;
 	}
@@ -40,8 +40,7 @@ export async function getData(
 			tick();
 		}),
 		...sizePackageList.map(async (key) => {
-			const pkg = key.substring(0, key.lastIndexOf("@"));
-			const version = key.substring(key.lastIndexOf("@") + 1);
+			const { name: pkg, range: version } = splitDescriptor(key);
 
 			sizes[key] = await registry.getPackageSize(pkg, version);
 			tick();
@@ -71,9 +70,7 @@ function progressBarReporter() {
 }
 
 export async function run(currentDir, { verbose, shouldOpen = true }) {
-	const lockfileDependencies = lockfile.parse(
-		await fs.readFile(path.join(currentDir, "yarn.lock"), "utf8"),
-	).object;
+	const lockfileDependencies = await readLockfile(currentDir);
 
 	console.log("Getting latest Versions...");
 	const reporter = progressBarReporter();

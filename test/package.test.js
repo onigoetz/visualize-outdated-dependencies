@@ -24,6 +24,7 @@ describe("published package contents", () => {
 			"src/bin.js",
 			"src/cache.js",
 			"src/index.js",
+			"src/lockfile.js",
 			"src/Node.js",
 			"src/registry.js",
 			"src/report.js",
