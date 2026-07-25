@@ -33,7 +33,7 @@
 	},
 	"bin": "src/bin.js",
 	"devDependencies": {
-		"@biomejs/biome": "2.5.4",
+		"@biomejs/biome": "2.5.5",
 		"@vitest/coverage-v8": "^4.1.10",
 		"vitest": "^4.1.10"
 	},
