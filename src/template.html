@@ -177,13 +177,13 @@
         const p = document.createElement("p");
         p.appendChild(document.createTextNode("Current Version: "));
         const currentVersion = document.createElement("strong");
-        currentVersion.innerText = reportData.version;
+        currentVersion.textContent = reportData.version;
         p.appendChild(currentVersion);
 
         if (reportData.version !== reportData.latest) {
           p.appendChild(document.createTextNode(" Latest version "));
           const latestVersion = document.createElement("strong");
-          latestVersion.innerText = reportData.latest;
+          latestVersion.textContent = reportData.latest;
           p.appendChild(latestVersion);
         }
 
@@ -195,7 +195,7 @@
 
         cells.forEach((cell) => {
           const element = document.createElement(type);
-          element.innerText = cell;
+          element.textContent = cell;
           row.appendChild(element);
         });
 
@@ -256,7 +256,7 @@
 
         const title = document.createElement("h2");
         title.className = "Card__title";
-        title.innerText = packageName;
+        title.textContent = packageName;
         reportCard.appendChild(title);
 
         const reportData = report[pack];
@@ -270,7 +270,7 @@
           table.className = "Table";
 
           const tableCaption = document.createElement("caption");
-          tableCaption.innerText = "Outdated dependencies";
+          tableCaption.textContent = "Outdated dependencies";
           table.appendChild(tableCaption);
 
           addRow(table, ["Package", "Current", "Latest"], "th");
@@ -290,7 +290,7 @@
           table.className = "Table";
 
           const tableCaption = document.createElement("caption");
-          tableCaption.innerText = "Used by";
+          tableCaption.textContent = "Used by";
           table.appendChild(tableCaption);
 
           addRow(table, ["Package", "Version"], "th");
